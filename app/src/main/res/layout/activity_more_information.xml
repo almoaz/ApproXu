@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MoreInformationActivity">
+
+    <include android:id="@+id/moreInfo_toolbar"
+        layout="@layout/navigation_ap_bar">
+
+    </include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/moreInfo_toolbar"
+        android:layout_alignParentStart="true"
+        android:background="@color/settingsBackground">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteColor">
+
+
+            <LinearLayout
+                android:id="@+id/education_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="14dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/university_icon"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Education"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/blackColor"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/education_linear_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/education_linear_layout"
+                android:orientation="vertical"
+                android:background="@color/settingLinearLayoutColor"
+                android:layout_margin="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/education_linear_layout"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="University"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/settingLinearLayoutTextColor"/>
+
+                    <TextView
+                        android:id="@+id/moreInfo_university_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/settingLinearLayoutTextColor"
+                        android:textSize="15sp"
+                        android:hint="none"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Subject"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/settingLinearLayoutTextColor"/>
+
+                    <TextView
+                        android:id="@+id/moreInfo_department_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/settingLinearLayoutTextColor"
+                        android:textSize="15sp"
+                        android:hint="none"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Semester"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/settingLinearLayoutTextColor"/>
+
+                    <TextView
+                        android:id="@+id/moreInfo_semester_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/settingLinearLayoutTextColor"
+                        android:textSize="15sp"
+                        android:hint="none"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/address_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_below="@id/education_linear_layout2"
+                android:layout_marginTop="1dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/location_icon"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your Address"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/blackColor"/>
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/address_linear_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/address_linear_layout"
+                android:orientation="vertical"
+                android:background="@color/settingLinearLayoutColor"
+                android:layout_margin="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/education_linear_layout"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Current City"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/settingLinearLayoutTextColor"/>
+
+                    <TextView
+                        android:id="@+id/moreInfo_city_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/settingLinearLayoutTextColor"
+                        android:textSize="15sp"
+                        android:hint="none"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Home Town"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/settingLinearLayoutTextColor"/>
+
+                    <TextView
+                        android:id="@+id/moreInfo_town_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/settingLinearLayoutTextColor"
+                        android:textSize="15sp"
+                        android:hint="none"/>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/information_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_below="@id/address_linear_layout2"
+                android:layout_marginTop="1dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/profile_icon"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Basic Information"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/blackColor"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/information_linear_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/information_linear_layout"
+                android:orientation="vertical"
+                android:background="@color/settingLinearLayoutColor"
+                android:layout_margin="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/education_linear_layout"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Gender"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/settingLinearLayoutTextColor"/>
+
+                    <TextView
+                        android:id="@+id/moreInfo_gender_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/settingLinearLayoutTextColor"
+                        android:textSize="15sp"
+                        android:hint="none"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Date of birth:"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/settingLinearLayoutTextColor"/>
+
+                    <TextView
+                        android:id="@+id/moreInfo_date_of_birth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/settingLinearLayoutTextColor"
+                        android:textSize="15sp"
+                        android:hint="none"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Religion"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/settingLinearLayoutTextColor"/>
+
+                    <TextView
+                        android:id="@+id/moreInfo_religion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/settingLinearLayoutTextColor"
+                        android:textSize="15sp"
+                        android:hint="none"/>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/about_contact_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_below="@id/information_linear_layout2"
+                android:layout_marginTop="1dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/contact_info"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Contact Info"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/blackColor"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/about_contact_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/about_contact_layout"
+                android:orientation="vertical"
+                android:background="@color/settingLinearLayoutColor"
+                android:layout_margin="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/education_linear_layout"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Email ID"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/settingLinearLayoutTextColor"/>
+
+                    <TextView
+                        android:id="@+id/moreInfo_email_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/settingLinearLayoutTextColor"
+                        android:textSize="15sp"
+                        android:hint="none"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Phone"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="15sp"
+                        android:textColor="@color/settingLinearLayoutTextColor"/>
+
+                    <TextView
+                        android:id="@+id/moreInfo_phone_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/settingLinearLayoutTextColor"
+                        android:textSize="15sp"
+                        android:hint="none"/>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

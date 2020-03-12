@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#615959</color>
+    <color name="colorPrimaryDark">#615959</color>
+    <color name="colorAccent">#131212</color>
+    <color name="halfAccent">#FFFFFF</color>
+    <color name="whiteColor">#FFFFFF</color>
+    <color name="halfWhiteColor">#50FFFFFF</color>
+    <color name="HalfWhiteColor">#75FFFFFF</color>
+    <color name="neviBlue">#24375B</color>
+    <color name="normalBlue">#4274D8</color>
+    <color name="redColor">#D23838</color>
+    <color name="blackColor">#131212</color>
+    <color name="normalBlack">#615959</color>
+    <color name="settingsBackground">#9EA0A0</color>
+    <color name="settingLinearLayoutColor">#F1F2F5</color>
+    <color name="settingLinearLayoutTextColor">#8D8D8D</color>
+    <color name="goldColor">#F8B034</color>
+    <color name="borderColor">#CACACA</color>
+    <color name="postBtnColor">#EBE8E8</color>
+    <color name="blueColor">#1592E6</color>
+    <color name="halfBlueColor">#97D0F6</color>
+</resources>

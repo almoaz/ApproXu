@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    tools:context=".ClassNoticeDataActivity">
+
+    <include
+        android:id="@+id/class_notice_ap_bar"
+        layout="@layout/navigation_ap_bar">
+
+    </include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/notice_university_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your University Name"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/blackColor"/>
+
+        <TextView
+            android:id="@+id/notice_department_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Departments Name"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/blackColor"/>
+
+        <TextView
+            android:id="@+id/notice_semester_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Semester"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/blackColor"/>
+
+        <TextView
+            android:id="@+id/notice_group_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Departments Name"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/blackColor"/>
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/notice_Data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/normalBlack"
+        android:dividerHeight="0.5dp"
+        android:layout_below="@id/class_notice_ap_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</RelativeLayout>

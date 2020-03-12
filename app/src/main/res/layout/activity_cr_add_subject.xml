@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    tools:context=".CrAddSubjectActivity">
+
+    <include
+        android:id="@+id/cr_add_subject_ap_bar"
+        layout="@layout/navigation_ap_bar">
+
+    </include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/cr_add_subject_ap_bar"
+        android:layout_alignParentStart="true">
+
+        <Spinner
+            android:id="@+id/add_subject_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            />
+
+        <EditText
+            android:id="@+id/add_subject_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_subject_spinner"
+            android:layout_margin="16dp"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textColor="@color/blackColor"
+            android:background="@drawable/post_border"
+            android:hint="Write subject name"/>
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Upload Subject"
+            android:textAllCaps="false"
+            android:onClick="UploadSubject"
+            android:background="@drawable/post_border"
+            android:textColor="@color/neviBlue"
+            android:layout_below="@id/add_subject_edit_text"
+            android:layout_margin="20dp"
+            android:layout_centerHorizontal="true"/>
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>

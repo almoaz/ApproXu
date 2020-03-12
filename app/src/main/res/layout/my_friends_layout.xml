@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/post_btn_background">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/friend_profile_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/profile_holder"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:id="@+id/friend_profile_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="full name"
+            android:textAlignment="textStart"
+            android:textColor="@color/blackColor"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/friend_request_accept_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:textAlignment="textStart"
+            android:textColor="@color/blackColor"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

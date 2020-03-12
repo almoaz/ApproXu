@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "771090460877",
+    "firebase_url": "https://approxu-76449.firebaseio.com",
+    "project_id": "approxu-76449",
+    "storage_bucket": "approxu-76449.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771090460877:android:3b11051f984e07a99db984",
+        "android_client_info": {
+          "package_name": "com.approxsoft.approxu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771090460877-gqcffrln64pstci6ff4jsa7mntsql96i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.approxsoft.approxu",
+            "certificate_hash": "34ab8d4a52abd25b29730fa3358a7bb809083e09"
+          }
+        },
+        {
+          "client_id": "771090460877-rf8kb49mglpqemqs8n3873f8jpe2kub3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCopH8A3nAp94YZUDTYmN6kxzDE-Dir4IE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771090460877-rf8kb49mglpqemqs8n3873f8jpe2kub3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/main_page_toolbar"
+            layout="@layout/home_ap_bar"></include>
+
+        <FrameLayout
+            android:id="@+id/main_container"
+            android:layout_width="match_parent"
+            android:layout_height="673dp"
+            android:layout_below="@+id/main_page_toolbar"
+            android:layout_marginTop="2dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/all_user_post_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="98dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp">
+
+
+            <TextView
+                android:id="@+id/home_approx_text"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:text="ApproXu"
+                android:textColor="@color/blackColor"
+                android:textSize="20sp"
+                android:onClick="homeBtn"
+                android:background="@drawable/home_inputs_background"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.18" />
+
+            <ImageView
+                android:id="@+id/home_home_icon"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:onClick="homeBtn"
+                android:padding="10dp"
+                android:src="@drawable/ic_home"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_approx_text" />
+
+            <ImageView
+                android:id="@+id/home_add_post_icon"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:onClick="homeBtn"
+                android:padding="10dp"
+                android:src="@drawable/post_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_approx_text" />
+
+            <ImageView
+                android:id="@+id/home_message_icon"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:padding="9dp"
+                android:onClick="homeBtn"
+                android:src="@drawable/chat_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_approx_text" />
+
+            <ImageView
+                android:id="@+id/home_friends_icon"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:onClick="homeBtn"
+                android:padding="9dp"
+                android:src="@drawable/find_friends"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.75"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_approx_text" />
+
+            <ImageView
+                android:id="@+id/notification_Btn"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="6dp"
+                android:onClick="homeBtn"
+                android:padding="8dp"
+                android:src="@drawable/full_black_notification"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_approx_text" />
+
+            <TextView
+                android:id="@+id/notification_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/notification_Btn"
+                android:layout_alignEnd="@+id/notification_Btn"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/registration_input_background"
+                android:padding="1dp"
+                android:textColor="@color/redColor"
+                android:textSize="12sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/notification_Btn"
+                app:layout_constraintEnd_toEndOf="@+id/notification_Btn"
+                app:layout_constraintStart_toStartOf="@+id/notification_Btn"
+                app:layout_constraintTop_toTopOf="@+id/notification_Btn"
+                tools:text="5" />
+
+            <TextView
+                android:id="@+id/message_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/registration_input_background"
+                android:padding="1dp"
+                android:textAlignment="center"
+                android:textColor="@color/redColor"
+                android:textSize="12sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/home_message_icon"
+                app:layout_constraintEnd_toEndOf="@+id/home_message_icon"
+                app:layout_constraintStart_toStartOf="@+id/home_message_icon"
+                app:layout_constraintTop_toTopOf="@+id/home_message_icon"
+                app:layout_constraintVertical_bias="0.3"
+                tools:text="5" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <ImageView
+            android:id="@+id/home_profile_icon"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:onClick="homeBtn"
+            android:src="@drawable/profile_icon"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="8dp"/>
+
+
+    </RelativeLayout>
+
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/main_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/whiteColor"
+
+        app:menu="@menu/navigation_menu" />
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

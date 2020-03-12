@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    tools:context=".SignInActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/logo"
+            android:layout_margin="40dp"
+            android:layout_alignParentTop="true"/>
+
+
+        <EditText
+            android:id="@+id/sign_in_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@+id/logo"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:hint="Email Id"
+            android:drawableLeft="@drawable/left_background"
+            android:drawableRight="@drawable/left_background"
+            android:inputType="textEmailAddress"
+            android:textSize="16sp"
+            android:textColor="@color/blackColor"
+            android:background="@drawable/post_border"/>
+
+        <EditText
+            android:id="@+id/sign_in_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:padding="10dp"
+            android:hint="Password"
+            android:drawableLeft="@drawable/left_background"
+            android:drawableRight="@drawable/left_background"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/sign_in_email"
+            android:inputType="textPassword"
+            android:textSize="16sp"
+            android:textColor="@color/blackColor"
+            android:background="@drawable/post_border"/>
+
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="forgot password?"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="18dp"
+            android:layout_below="@id/sign_in_password"
+            android:textColor="@color/redColor"
+            />
+
+        <ProgressBar
+            android:id="@+id/sign_in_progressBar"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/forgot_password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:theme="@style/ProgressBar"
+            android:visibility="invisible"/>
+
+        <Button
+            android:id="@+id/sign_in_btn"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/post_border"
+            android:text="Sign In"
+            android:enabled="false"
+            android:layout_below="@id/sign_in_progressBar"
+            android:textColor="#50615959"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textAllCaps="false"/>
+
+        <TextView
+            android:id="@+id/create_a_new_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create a new Account"
+            android:textColor="@color/normalBlack"
+            android:layout_below="@+id/sign_in_btn"
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/whiteColor"
+    tools:context=".ClassTestActivity">
+
+    <include
+        android:id="@+id/class_test_ap_bar"
+        layout="@layout/navigation_ap_bar">
+    </include>
+
+    <ScrollView
+        android:id="@+id/class_test_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/class_test_ap_bar"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+           <RelativeLayout
+               android:id="@+id/class_test_relative_layout2"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="5dp"
+               android:background="@drawable/post_border">
+
+
+               <TextView
+                   android:id="@+id/class_test_university"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="University"
+                   android:layout_alignParentTop="true"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginLeft="16dp"
+                   android:layout_marginRight="16dp"
+                   android:layout_centerHorizontal="true"
+                   android:textAlignment="center"
+                   android:textColor="@color/blackColor"
+                   android:textSize="16sp" />
+
+               <TextView
+                   android:id="@+id/class_test_departments"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Departments"
+                   android:layout_below="@id/class_test_university"
+                   android:layout_marginTop="5dp"
+                   android:layout_marginLeft="16dp"
+                   android:layout_marginRight="16dp"
+                   android:layout_centerHorizontal="true"
+                   android:textAlignment="center"
+                   android:textColor="@color/blackColor"
+                   android:textSize="16sp" />
+
+               <TextView
+                   android:id="@+id/class_test_semester"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="5dp"
+                   android:layout_marginLeft="16dp"
+                   android:layout_marginRight="16dp"
+                   android:layout_below="@id/class_test_departments"
+                   android:layout_centerHorizontal="true"
+                   android:text="Semester"
+                   android:textAlignment="center"
+                   android:textColor="@color/blackColor"
+                   android:textSize="16sp" />
+
+               <TextView
+                   android:id="@+id/class_test_group"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="5dp"
+                   android:layout_marginLeft="16dp"
+                   android:layout_marginRight="16dp"
+                   android:layout_below="@id/class_test_semester"
+                   android:layout_centerHorizontal="true"
+                   android:text="Group"
+                   android:layout_marginBottom="10dp"
+                   android:textAlignment="center"
+                   android:textColor="@color/blackColor"
+                   android:textSize="16sp"/>
+
+
+           </RelativeLayout>
+            <Spinner
+                android:id="@+id/class_test_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/class_test_relative_layout2"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"/>
+
+            <EditText
+                android:id="@+id/class_test_topics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Write subject topics"
+                android:layout_below="@+id/class_test_spinner"
+                android:background="@drawable/post_border"
+                android:padding="10dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/class_test_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Write class test date"
+                android:layout_below="@+id/class_test_topics"
+                android:background="@drawable/post_border"
+                android:padding="10dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="5dp"/>
+
+            <Button
+                android:id="@+id/class_test_upload_btn"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/neviBlue"
+                android:layout_below="@id/class_test_date"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="16dp"
+                android:background="@drawable/post_border"
+                android:text="Upload"
+                android:layout_centerHorizontal="true"/>
+
+
+            <ListView
+                android:id="@+id/cr_upload_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="1500dp"
+                android:divider="@color/normalBlack"
+                android:dividerHeight="0.5dp"
+                android:layout_below="@id/class_test_upload_btn"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                />
+
+        </RelativeLayout>
+
+
+
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

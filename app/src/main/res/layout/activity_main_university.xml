@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    tools:context=".MainUniversity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/main_university_cover_image"
+                android:layout_width="413dp"
+                android:layout_height="187dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_centerHorizontal="true"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/blank_cover_image" />
+
+            <RelativeLayout
+                android:id="@+id/university_relative_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/main_university_cover_image"
+                android:layout_alignParentStart="true"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/post_border">
+
+                    <TextView
+                        android:id="@+id/main_university_add_info_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Add Info"
+                        android:textColor="@color/blackColor"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/divider3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/divider3"
+                        android:layout_width="1dp"
+                        android:layout_height="38dp"
+                        android:background="@color/borderColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/divider4"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/main_university_check_sd_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Check SD"
+                        android:textColor="@color/blackColor"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/divider4"
+                        app:layout_constraintStart_toEndOf="@+id/divider3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/divider4"
+                        android:layout_width="1dp"
+                        android:layout_height="38dp"
+                        android:layout_marginStart="9dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:background="@color/borderColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/main_university_update_sd_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Student"
+                        android:textColor="@color/blackColor"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/divider5"
+                        app:layout_constraintStart_toEndOf="@+id/divider4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/divider5"
+                        android:layout_width="1dp"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:background="@color/borderColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/divider4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/main_university_edit_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Count"
+                        android:textColor="@color/blackColor"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/divider5"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/university_relative_layout"
+                android:id="@+id/university_gallery"
+                android:textSize="16sp"
+                android:text="Gallery"
+                android:textColor="@color/blackColor"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"/>
+
+
+            <ViewFlipper
+                android:id="@+id/viewPager1"
+                android:layout_width="413dp"
+                android:layout_height="187dp"
+                android:autoStart="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/university_gallery"
+                android:flipInterval="3000">
+
+
+                <ImageView
+                    android:id="@+id/banner1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="@+id/viewPager"
+                    app:layout_constraintTop_toTopOf="@+id/viewPager"
+                    app:srcCompat="@drawable/blank_cover_image" />
+
+                <ImageView
+                    android:id="@+id/banner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="@+id/viewPager"
+                    app:layout_constraintTop_toTopOf="@+id/viewPager"
+                    app:srcCompat="@drawable/blank_cover_image" />
+
+                <ImageView
+                    android:id="@+id/banner3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="@+id/viewPager"
+                    app:layout_constraintTop_toTopOf="@+id/viewPager"
+                    app:srcCompat="@drawable/blank_cover_image" />
+
+
+            </ViewFlipper>
+
+            <ViewFlipper
+                android:id="@+id/viewPager2"
+                android:layout_width="413dp"
+                android:layout_height="187dp"
+                android:autoStart="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/viewPager1"
+                android:flipInterval="3000">
+
+
+                <ImageView
+                    android:id="@+id/banner4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="@+id/viewPager"
+                    app:layout_constraintTop_toTopOf="@+id/viewPager"
+                    app:srcCompat="@drawable/blank_cover_image" />
+
+                <ImageView
+                    android:id="@+id/banner5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="@+id/viewPager"
+                    app:layout_constraintTop_toTopOf="@+id/viewPager"
+                    app:srcCompat="@drawable/blank_cover_image" />
+
+                <ImageView
+                    android:id="@+id/banner6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="@+id/viewPager"
+                    app:layout_constraintTop_toTopOf="@+id/viewPager"
+                    app:srcCompat="@drawable/blank_cover_image" />
+
+
+            </ViewFlipper>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

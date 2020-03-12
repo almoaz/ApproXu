@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    tools:context=".ClassTestDataActivity">
+
+    <include
+        android:id="@+id/class_test_ap_bar"
+        layout="@layout/navigation_ap_bar">
+
+    </include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/university_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your University Name"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/blackColor"/>
+
+        <TextView
+            android:id="@+id/department_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Departments Name"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/blackColor"/>
+
+        <TextView
+            android:id="@+id/semester_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Semester"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/blackColor"/>
+
+        <TextView
+            android:id="@+id/group_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Departments Name"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/blackColor"/>
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/class_test_Data"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_above="@+id/adView"
+        android:layout_below="@id/class_test_ap_bar"
+        android:layout_marginBottom="3dp"
+        android:divider="@color/borderColor"
+        android:dividerHeight="0.5dp" />
+
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111">
+
+    </com.google.android.gms.ads.AdView>
+
+</RelativeLayout>

@@ -1,0 +1,28 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/blackColor</item>
+        <item name="colorAccent">@color/whiteColor</item>
+        <item name="android:windowBackground">@drawable/splash_activity_background</item>
+    </style>
+
+    <style name="ProgressBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/neviBlue</item>
+        <item name="colorPrimaryDark">@color/neviBlue</item>
+        <item name="colorAccent">@color/neviBlue</item>
+    </style>
+
+
+
+</resources>
