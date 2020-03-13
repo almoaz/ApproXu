@@ -31,22 +31,21 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AddUniversityActivity extends AppCompatActivity {
 
     private CircleImageView profileImage;
-    private TextView fullname, emailId, addUniversityNext;
+    private TextView FullName, emailId, addUniversityNext;
     private FirebaseAuth mAuth;
-    private DatabaseReference userReff,spinnerReff,universiryReff, UserReff;
+    DatabaseReference userReference,spinnerReference,universityReference, UserReference;
     String CurrentUserId, currentUser;
-    private Toolbar mToolBar;
+    Toolbar mToolBar;
     private Spinner UniversitySpinner;
-    private String Code1Pattern ="[a-zA-Z0-9._-]+";
-    private String Code2Pattern ="[a-zA-Z0-9._-]+";
-    private String Code3Pattern ="[a-zA-Z0-9._-]+";
-    private String IdPattern ="[0-9]+";
+    String Code1Pattern ="[j-tA-M5-9]+[._*+/]+[f-nM-O0-5]+@[A-Z]+.[a-z]";
+    String IdPattern ="[0-9]+";
 
 
     private EditText codeBox1, studentId;
@@ -58,27 +57,27 @@ public class AddUniversityActivity extends AppCompatActivity {
     ArrayList<String> spinnerDataList;
 
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_university);
 
         mAuth = FirebaseAuth.getInstance();
-        CurrentUserId = mAuth.getCurrentUser().getUid();
-        userReff = FirebaseDatabase.getInstance().getReference().child("All Users");
-        spinnerReff = FirebaseDatabase.getInstance().getReference().child("all University");
+        CurrentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        userReference = FirebaseDatabase.getInstance().getReference().child("All Users");
+        spinnerReference = FirebaseDatabase.getInstance().getReference().child("all University");
 
 
 
         mToolBar = findViewById(R.id.add_university_ap_bar);
         setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Add University");
 
         UniversitySpinner = findViewById(R.id.add_university_name_spinner);
 
         spinnerDataList = new ArrayList<>();
-        adapter = new ArrayAdapter<String>(AddUniversityActivity.this,
-                android.R.layout.simple_spinner_dropdown_item,spinnerDataList);
+        adapter = new ArrayAdapter<>(AddUniversityActivity.this,
+                android.R.layout.simple_spinner_dropdown_item, spinnerDataList);
         UniversitySpinner.setAdapter(adapter);
         retrieveData();
 
@@ -87,7 +86,7 @@ public class AddUniversityActivity extends AppCompatActivity {
         addUniversityNext = findViewById(R.id.add_university_next);
 
         profileImage = findViewById(R.id.add_university_user_profile);
-        fullname = findViewById(R.id.add_university_user_full_name);
+        FullName = findViewById(R.id.add_university_user_full_name);
         emailId = findViewById(R.id.add_university_email);
 
 
@@ -98,20 +97,20 @@ public class AddUniversityActivity extends AppCompatActivity {
 
 
 
-        userReff.child(CurrentUserId).addValueEventListener(new ValueEventListener() {
+        userReference.child(CurrentUserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-               if (dataSnapshot.exists()){
-                   String image = dataSnapshot.child("profileImage").getValue().toString();
-                   String name = dataSnapshot.child("fullName").getValue().toString();
-                   String email = dataSnapshot.child("email").getValue().toString();
+                if (dataSnapshot.exists()){
+                    String image = Objects.requireNonNull(dataSnapshot.child("profileImage").getValue()).toString();
+                    String name = Objects.requireNonNull(dataSnapshot.child("fullName").getValue()).toString();
+                    String email = Objects.requireNonNull(dataSnapshot.child("email").getValue()).toString();
 
-                   fullname.setText(name);
-                   emailId.setText(email);
+                    FullName.setText(name);
+                    emailId.setText(email);
 
-                   Picasso.get().load(image).placeholder(R.drawable.white_profile_holder).into(profileImage);
-               }
+                    Picasso.get().load(image).placeholder(R.drawable.white_profile_holder).into(profileImage);
+                }
             }
 
             @Override
@@ -169,13 +168,13 @@ public class AddUniversityActivity extends AppCompatActivity {
     }
     public void retrieveData()
     {
-        listener = spinnerReff.child("university").addValueEventListener(new ValueEventListener() {
+        listener = spinnerReference.child("university").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
                 for (DataSnapshot item:dataSnapshot.getChildren())
                 {
-                    spinnerDataList.add(item.getValue().toString());
+                    spinnerDataList.add(Objects.requireNonNull(item.getValue()).toString());
                 }
 
                 adapter.notifyDataSetChanged();
@@ -191,99 +190,99 @@ public class AddUniversityActivity extends AppCompatActivity {
 
     private void checkInputs() {
         if (!TextUtils.isEmpty(codeBox1.getText().toString())){
-                    if (!TextUtils.isEmpty(studentId.getText().toString())){
+            if (!TextUtils.isEmpty(studentId.getText().toString())){
 
-                            addUniversityNext.setEnabled(true);
-                            addUniversityNext.setTextColor(Color.rgb(36,55,91));
-                    }else {
-                        addUniversityNext.setEnabled(false);
-                        addUniversityNext.setTextColor(Color.argb(50,36,55,91));
-                    }
-                }else {
-                    addUniversityNext.setEnabled(false);
-                    addUniversityNext.setTextColor(Color.argb(50,36,55,91));
-                }
+                addUniversityNext.setEnabled(true);
+                addUniversityNext.setTextColor(Color.rgb(36,55,91));
+            }else {
+                addUniversityNext.setEnabled(false);
+                addUniversityNext.setTextColor(Color.argb(50,36,55,91));
+            }
+        }else {
+            addUniversityNext.setEnabled(false);
+            addUniversityNext.setTextColor(Color.argb(50,36,55,91));
+        }
 
     }
 
     private void checkDocuments() {
         if (codeBox1.getText().toString().matches(Code1Pattern)){
-                    if (studentId.getText().toString().matches(IdPattern)){
+            if (studentId.getText().toString().matches(IdPattern)){
 
-                        UniversitySpinner.getSelectedItem().toString();
-                        currentUser = mAuth.getCurrentUser().getUid();
-                        UserReff = FirebaseDatabase.getInstance().getReference().child("All Users");
-                        universiryReff = FirebaseDatabase.getInstance().getReference().child("All University");
+                UniversitySpinner.getSelectedItem().toString();
+                currentUser = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+                UserReference = FirebaseDatabase.getInstance().getReference().child("All Users");
+                universityReference = FirebaseDatabase.getInstance().getReference().child("All University");
 
-                        HashMap userMap = new HashMap();
-                        userMap.put("university",UniversitySpinner.getSelectedItem().toString());
-                        userMap.put("stdId",studentId.getText().toString());
+                HashMap userMap = new HashMap();
+                userMap.put("university",UniversitySpinner.getSelectedItem().toString());
+                userMap.put("stdId",studentId.getText().toString());
 
 
-                        UserReff.child(currentUser).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
-                            @Override
-                            public void onComplete(@NonNull Task task)
-                            {
-                                if (task.isSuccessful())
+                UserReference.child(currentUser).updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            UserReference.child(currentUser).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                                 {
-                                    UserReff.child(currentUser).addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-                                        {
-                                            if (dataSnapshot.exists()){
-                                                String name = dataSnapshot.child("fullName").getValue().toString();
-                                                String stdid = dataSnapshot.child("stdId").getValue().toString();
-                                                String gender = dataSnapshot.child("gender").getValue().toString();
-                                                String email = dataSnapshot.child("email").getValue().toString();
-                                                String image = dataSnapshot.child("profileImage").getValue().toString();
-                                                String University = dataSnapshot.child("university").getValue().toString();
-                                                String phoneNo = dataSnapshot.child("phoneNo").getValue().toString();
+                                    if (dataSnapshot.exists()){
+                                        String name = Objects.requireNonNull(dataSnapshot.child("fullName").getValue()).toString();
+                                        String stdid = Objects.requireNonNull(dataSnapshot.child("stdId").getValue()).toString();
+                                        String gender = Objects.requireNonNull(dataSnapshot.child("gender").getValue()).toString();
+                                        String email = Objects.requireNonNull(dataSnapshot.child("email").getValue()).toString();
+                                        String image = Objects.requireNonNull(dataSnapshot.child("profileImage").getValue()).toString();
+                                        String University = Objects.requireNonNull(dataSnapshot.child("university").getValue()).toString();
+                                        String phoneNo = Objects.requireNonNull(dataSnapshot.child("phoneNo").getValue()).toString();
 
-                                                HashMap universityMap = new HashMap();
-                                                universityMap.put("profileImage",image);
-                                                universityMap.put("fullName",name);
-                                                universityMap.put("stdId",stdid);
-                                                universityMap.put("Gender",gender);
-                                                universityMap.put("Email",email);
-                                                universityMap.put("university",University);
-                                                universityMap.put("TotalPayments","None");
-                                                universityMap.put("Phone",phoneNo);
-                                                universityMap.put("PayablePayments","None");
-                                                universityMap.put("SemesterFee","None");
-                                                universityMap.put("SemesterPayment","None");
-                                                universityMap.put("SemesterDue","None");
+                                        HashMap universityMap = new HashMap();
+                                        universityMap.put("profileImage",image);
+                                        universityMap.put("fullName",name);
+                                        universityMap.put("stdId",stdid);
+                                        universityMap.put("Gender",gender);
+                                        universityMap.put("Email",email);
+                                        universityMap.put("university",University);
+                                        universityMap.put("TotalPayments","None");
+                                        universityMap.put("Phone",phoneNo);
+                                        universityMap.put("PayablePayments","None");
+                                        universityMap.put("SemesterFee","None");
+                                        universityMap.put("SemesterPayment","None");
+                                        universityMap.put("SemesterDue","None");
 
 
-                                                universiryReff.child(University).child("All Students").child(currentUser).updateChildren(universityMap).addOnCompleteListener(new OnCompleteListener() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task task) {
-                                                        if (task.isSuccessful()){
-                                                            Intent intent = new Intent(AddUniversityActivity.this,AddUniversity2Activity.class);
-                                                            startActivity(intent);
-                                                            Animatoo.animateSlideLeft(AddUniversityActivity.this);
-                                                        }
+                                        universityReference.child(University).child("All Students").child(currentUser).updateChildren(universityMap).addOnCompleteListener(new OnCompleteListener() {
+                                            @Override
+                                            public void onComplete(@NonNull Task task) {
+                                                if (task.isSuccessful()){
+                                                    Intent intent = new Intent(AddUniversityActivity.this,AddUniversity2Activity.class);
+                                                    startActivity(intent);
+                                                    Animatoo.animateSlideLeft(AddUniversityActivity.this);
+                                                }
 
-                                                    }
-                                                });
                                             }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                        }
-                                    });
+                                        });
+                                    }
                                 }
-                            }
-                        });
 
-                    }else {
-                        Toast.makeText(this,"Invalid Student Id",Toast.LENGTH_SHORT).show();
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
                     }
+                });
 
-                }else {
-                    Toast.makeText(this,"Invalid Code",Toast.LENGTH_SHORT).show();
-                }
+            }else {
+                Toast.makeText(this,"Invalid Student Id",Toast.LENGTH_SHORT).show();
+            }
+
+        }else {
+            Toast.makeText(this,"Invalid Code",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
