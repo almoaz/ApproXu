@@ -3,6 +3,7 @@ package com.approxsoft.approxu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,17 +36,19 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private Toolbar mToolbar;
+    Toolbar mToolbar;
     private CircleImageView profileImage;
-    private ImageView addPostIcon, editProfileIcon, uploadCoverPic;
-    private TextView userName,addPost, editProfile, moreInformation, universityName, departmentsName, Semester, semesterID, date_Of_Birth, current_city_name, profileFullName;
-    private FirebaseAuth mAuth;
-    private DatabaseReference userReff, profileUserReff, FriendsReff, PostsReff, PostsRef, userRef, StarRef;
-    private String currentUserId;
+    ImageView addPostIcon, editProfileIcon, uploadCoverPic;
+    TextView userName,addPost, editProfile, moreInformation, universityName, departmentsName, Semester, semesterID, date_Of_Birth, current_city_name, profileFullName;
+    FirebaseAuth mAuth;
+    DatabaseReference userReff, profileUserReff, FriendsReff, PostsReff, PostsRef, userRef, StarRef;
+    String currentUserId;
     private RecyclerView myPostList;
 
     Boolean StarChecker = false;
@@ -64,7 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.getCurrentUser().getUid();
+        currentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         userReff = FirebaseDatabase.getInstance().getReference().child("All Users");
         profileUserReff = FirebaseDatabase.getInstance().getReference().child("All Users").child(currentUserId);
         ImageReff = FirebaseStorage.getInstance().getReference().child("Cover Image");
@@ -98,7 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.profile_tool_bar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
 
@@ -113,15 +115,15 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String fullname = dataSnapshot.child("fullName").getValue().toString();
-                    String university = dataSnapshot.child("university").getValue().toString();
-                    String departments = dataSnapshot.child("departments").getValue().toString();
-                    String semester = dataSnapshot.child("semester").getValue().toString();
-                    String semesterid = dataSnapshot.child("stdId").getValue().toString();
-                    String dateOfBirth = dataSnapshot.child("dateOfBirth").getValue().toString();
-                    String currentCity = dataSnapshot.child("currentCity").getValue().toString();
-                    String PrfileImage = dataSnapshot.child("profileImage").getValue().toString();
-                    String coverImage = dataSnapshot.child("coverImage").getValue().toString();
+                    String fullname = Objects.requireNonNull(dataSnapshot.child("fullName").getValue()).toString();
+                    String university = Objects.requireNonNull(dataSnapshot.child("university").getValue()).toString();
+                    String departments = Objects.requireNonNull(dataSnapshot.child("departments").getValue()).toString();
+                    String semester = Objects.requireNonNull(dataSnapshot.child("semester").getValue()).toString();
+                    String semesterid = Objects.requireNonNull(dataSnapshot.child("stdId").getValue()).toString();
+                    String dateOfBirth = Objects.requireNonNull(dataSnapshot.child("dateOfBirth").getValue()).toString();
+                    String currentCity = Objects.requireNonNull(dataSnapshot.child("currentCity").getValue()).toString();
+                    String PrfileImage = Objects.requireNonNull(dataSnapshot.child("profileImage").getValue()).toString();
+                    String coverImage = Objects.requireNonNull(dataSnapshot.child("coverImage").getValue()).toString();
 
                     profileFullName.setText(fullname);
                     userName.setText(fullname);
@@ -196,13 +198,14 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         FriendsReff.child(currentUserId).addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
                 if (dataSnapshot.exists())
                 {
                     countFriends = (int) dataSnapshot.getChildrenCount();
-                    MyFriends.setText(Integer.toString(countFriends )+ "  Friends");
+                    MyFriends.setText(countFriends + "  Friends");
                 }
                 else
                 {
@@ -215,16 +218,25 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+        MyFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent friendIntent = new Intent(ProfileActivity.this,FriendsActivity.class);
+                startActivity(friendIntent);
+                Animatoo.animateFade(ProfileActivity.this);
+            }
+        });
 
         PostsReff.orderByChild("uid").startAt(currentUserId).endAt(currentUserId + "\uf8ff")
                 .addValueEventListener(new ValueEventListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                     {
                         if (dataSnapshot.exists())
                         {
                             countPosts = (int) dataSnapshot.getChildrenCount();
-                            MyPosts.setText(Integer.toString(countPosts)+ "  Posts");
+                            MyPosts.setText(countPosts + "  Posts");
                         }
                         else
                         {
@@ -267,7 +279,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                         //Toast.makeText(AddPostActivity.this, "Image upload successfully firebase storage...", Toast.LENGTH_SHORT).show();
 
-                        Task<Uri> result = task.getResult().getMetadata().getReference().getDownloadUrl();
+                        Task<Uri> result = Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getMetadata()).getReference()).getDownloadUrl();
 
                         result.addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
@@ -282,7 +294,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                                     loadingBar.dismiss();
                                                 } else {
-                                                    String message = task.getException().getMessage();
+                                                    String message = Objects.requireNonNull(task.getException()).getMessage();
                                                     Toast.makeText(ProfileActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                                                     loadingBar.dismiss();
                                                 }
@@ -313,15 +325,15 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String fullname = dataSnapshot.child("fullName").getValue().toString();
-                    String university = dataSnapshot.child("university").getValue().toString();
-                    String departments = dataSnapshot.child("departments").getValue().toString();
-                    String semester = dataSnapshot.child("semester").getValue().toString();
-                    String semesterid = dataSnapshot.child("stdId").getValue().toString();
-                    String dateOfBirth = dataSnapshot.child("dateOfBirth").getValue().toString();
-                    String currentCity = dataSnapshot.child("currentCity").getValue().toString();
-                    String PrfileImage = dataSnapshot.child("profileImage").getValue().toString();
-                    String coverImage = dataSnapshot.child("coverImage").getValue().toString();
+                    String fullname = Objects.requireNonNull(dataSnapshot.child("fullName").getValue()).toString();
+                    String university = Objects.requireNonNull(dataSnapshot.child("university").getValue()).toString();
+                    String departments = Objects.requireNonNull(dataSnapshot.child("departments").getValue()).toString();
+                    String semester = Objects.requireNonNull(dataSnapshot.child("semester").getValue()).toString();
+                    String semesterid = Objects.requireNonNull(dataSnapshot.child("stdId").getValue()).toString();
+                    String dateOfBirth = Objects.requireNonNull(dataSnapshot.child("dateOfBirth").getValue()).toString();
+                    String currentCity = Objects.requireNonNull(dataSnapshot.child("currentCity").getValue()).toString();
+                    String PrfileImage = Objects.requireNonNull(dataSnapshot.child("profileImage").getValue()).toString();
+                    String coverImage = Objects.requireNonNull(dataSnapshot.child("coverImage").getValue()).toString();
 
                     profileFullName.setText(fullname);
                     userName.setText(fullname);
@@ -353,6 +365,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         FirebaseRecyclerOptions<Posts> options = new FirebaseRecyclerOptions.Builder<Posts>().setQuery(ShortPostInDecendingOrder, Posts.class).build();
         FirebaseRecyclerAdapter<Posts, PostsViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Posts, ProfileActivity.PostsViewHolder>(options) {
+            @SuppressLint("SetTextI18n")
             @Override
             protected void onBindViewHolder(@NonNull ProfileActivity.PostsViewHolder holder, final int position, @NonNull Posts model) {
 
@@ -404,7 +417,7 @@ public class ProfileActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (StarChecker.equals(true)) {
-                                    if (dataSnapshot.child(PostKey).hasChild(currentUserId)) {
+                                    if (dataSnapshot.child(Objects.requireNonNull(PostKey)).hasChild(currentUserId)) {
                                         StarRef.child(PostKey).child(currentUserId).removeValue();
                                         StarChecker = false;
                                     } else {
@@ -428,7 +441,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public PostsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.all_post_layout, parent, false);
-                PostsViewHolder viewHolder = new PostsViewHolder(view);
+                PostsViewHolder viewHolder;
+                viewHolder = new PostsViewHolder(view);
                 return viewHolder;
             }
         };
@@ -447,7 +461,7 @@ public class ProfileActivity extends AppCompatActivity {
         CircleImageView user_profile_image;
         ImageView postImage;
 
-        public PostsViewHolder(View itemView) {
+        PostsViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
 
@@ -463,22 +477,23 @@ public class ProfileActivity extends AppCompatActivity {
             DisplayNoOfStar = itemView.findViewById(R.id.display_no_of_star);
 
             StarReff = FirebaseDatabase.getInstance().getReference().child("Star");
-            currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            currentUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         }
 
-        public void setStarButtonStatus(final String PostKey) {
+        void setStarButtonStatus(final String PostKey) {
             StarReff.addValueEventListener(new ValueEventListener() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.child(PostKey).hasChild(currentUserId)) {
                         countStar = (int) dataSnapshot.child(PostKey).getChildrenCount();
                         StarPostBtn.setImageResource(R.drawable.full_gold_star);
-                        DisplayNoOfStar.setText(Integer.toString(countStar) + (" Star"));
+                        DisplayNoOfStar.setText(countStar + (" Star"));
                     } else {
                         countStar = (int) dataSnapshot.child(PostKey).getChildrenCount();
                         StarPostBtn.setImageResource(R.drawable.gold_star);
-                        DisplayNoOfStar.setText(Integer.toString(countStar) + (" Star"));
+                        DisplayNoOfStar.setText(countStar + (" Star"));
                     }
                 }
 
