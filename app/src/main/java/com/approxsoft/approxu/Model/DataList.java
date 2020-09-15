@@ -1,5 +1,6 @@
 package com.approxsoft.approxu.Model;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,7 @@ public class DataList extends ArrayAdapter<Data> {
     public View getView(int position, View covertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View listViewItem = inflater.inflate(R.layout.list_layout, null, true);
+        @SuppressLint({"ViewHolder", "InflateParams"}) View listViewItem = inflater.inflate(R.layout.list_layout, null, true);
         TextView subjectTextView = listViewItem.findViewById(R.id.subject_text);
         TextView topicsTextView = listViewItem.findViewById(R.id.topic_text);
         TextView timeTextView = listViewItem.findViewById(R.id.date_text);

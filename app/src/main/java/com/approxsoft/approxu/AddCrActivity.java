@@ -11,7 +11,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -34,11 +34,11 @@ public class AddCrActivity extends AppCompatActivity {
 
     private CircleImageView profileImage;
     private TextView fullname, addCrNext, codeBox;
-    private FirebaseAuth mAuth;
-    private DatabaseReference userReff,UserReff;
+    FirebaseAuth mAuth;
+    DatabaseReference userReff,UserReff;
     String CurrentUserId,currentUserId;
-    private Toolbar mToolBar;
-    private String Code1Pattern ="[a-zA-Z0-9._-]+";
+    Toolbar mToolBar;
+    String Code1Pattern ="[j-tA-M5-9]+[._*+/]+[f-nM-O0-5]+@[A-Z]+.[cr]";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class AddCrActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_cr);
 
         mAuth = FirebaseAuth.getInstance();
-        CurrentUserId = mAuth.getCurrentUser().getUid();
+        CurrentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         UserReff = FirebaseDatabase.getInstance().getReference().child("All Users");
 
         profileImage = findViewById(R.id.cr_profileImage);
@@ -57,7 +57,7 @@ public class AddCrActivity extends AppCompatActivity {
 
         mToolBar = findViewById(R.id.add_cr_ap_bar);
         setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Add CR");
 
         UserReff.child(CurrentUserId).addValueEventListener(new ValueEventListener() {
@@ -65,8 +65,8 @@ public class AddCrActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
                 if (dataSnapshot.exists()){
-                    String image = dataSnapshot.child("profileImage").getValue().toString();
-                    String name = dataSnapshot.child("fullName").getValue().toString();
+                    String image = Objects.requireNonNull(dataSnapshot.child("profileImage").getValue()).toString();
+                    String name = Objects.requireNonNull(dataSnapshot.child("fullName").getValue()).toString();
 
                     fullname.setText(name);
 
@@ -110,7 +110,7 @@ public class AddCrActivity extends AppCompatActivity {
     private void checkDocuments() {
         if (codeBox.getText().toString().matches(Code1Pattern)){
 
-                currentUserId = mAuth.getCurrentUser().getUid();
+                currentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
                 userReff = FirebaseDatabase.getInstance().getReference().child("All Users");
 
 

@@ -1,10 +1,10 @@
 package com.approxsoft.approxu.Model;
 
 public class Data {
-    String subjectId;
-    String subjectName;
-    String subjectTopics;
-    String subjectDate;
+    private String subjectId;
+    private String subjectName;
+    private String subjectTopics;
+    private String subjectDate;
 
     public Data(){
 

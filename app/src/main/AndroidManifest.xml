@@ -5,7 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -17,7 +17,34 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".BlankActivity"></activity>
+        <activity android:name=".VideoCallStremActivity" />
+        <activity android:name=".VideoCallActivity" />
+        <activity android:name=".SinglePageApplicationActivity" />
+        <activity android:name=".FourInOnePageActivity" />
+        <activity android:name=".FriendInvitePageActivity" />
+        <activity android:name=".PageChatActivity" />
+        <activity android:name=".PageMessageActivity" />
+        <activity android:name=".UserPageHomeActivity" />
+        <activity android:name=".PageEditActivity" />
+        <activity android:name=".AddPagePostActivity" />
+        <activity android:name=".PageHomeActivity" />
+        <activity android:name=".CreatePageActivity" />
+        <activity android:name=".PageActivity" />
+        <activity android:name=".CommentsReplyActivity" />
+        <activity android:name=".ReportSubmitActivity" />
+        <activity android:name=".ReportProblemActivity" />
+        <activity android:name=".FullViewDisplayActivity" />
+        <activity android:name=".SecurityAndLoginActivity" />
+        <activity android:name=".UserNameChangeActivity" />
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".VersionUpdateActivity" />
+        <activity android:name=".SearchFriendsActivity" />
+        <activity android:name=".AllGroupFriendsListActivity" />
+        <activity
+            android:name=".ClassGroupChatActivity"
+            android:parentActivityName=".UniversityInfo" />
+        <activity android:name=".StarFriendActivity" />
+        <activity android:name=".BlankActivity" />
         <activity android:name=".ClassRoutineDataActivity" />
         <activity android:name=".ClassNoticeDataActivity" />
         <activity android:name=".ClassRoutineActivity" />
@@ -62,7 +89,9 @@
         <activity
             android:name=".AddUniversityActivity"
             android:parentActivityName=".HomeActivity" />
-        <activity android:name=".ChatActivity" />
+        <activity
+            android:name=".ChatActivity"
+            android:parentActivityName=".MessageActivity" />
         <activity
             android:name=".NotificationActivity"
             android:parentActivityName=".HomeActivity" />
@@ -97,10 +126,12 @@
             android:name=".ClickPostActivity"
             android:parentActivityName=".HomeActivity" />
         <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".SignUpActivity"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".SignInActivity"
-            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".SignUpActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SignInActivity"
+            android:theme="@style/AppTheme" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

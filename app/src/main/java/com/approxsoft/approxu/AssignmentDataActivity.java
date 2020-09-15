@@ -37,97 +37,14 @@ public class AssignmentDataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assignment_data);
 
-        mToolBar = new Toolbar(this);
-        mToolBar = findViewById(R.id.class_assignment_ap_bar);
-        setSupportActionBar(mToolBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Assignment");
 
-        mAuth = FirebaseAuth.getInstance();
-        CurrentUserId = mAuth.getCurrentUser().getUid();
-        userReff = FirebaseDatabase.getInstance().getReference().child("All Users").child(CurrentUserId);
-
-
-        universityName = findViewById(R.id.assignment_university_Name);
-        departmentName = findViewById(R.id.assignment_department_Name);
-        semsterName = findViewById(R.id.assignment_semester_Name);
-        groupName = findViewById(R.id.assignment_group_Name);
-
-
-        testViewData = findViewById(R.id.assignment_Data);
-        dataList = new ArrayList<>();
     }
 
 
     @Override
     protected void onStart() {
 
-        userReff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-            {
-                if (dataSnapshot.exists()){
-                    String university = dataSnapshot.child("university").getValue().toString();
 
-                    universityReff = FirebaseDatabase.getInstance().getReference().child("All University").child(university).child("All Students").child(CurrentUserId);
-
-                    universityReff.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-                        {
-                            if (dataSnapshot.exists())
-                            {
-                                String University = dataSnapshot.child("university").getValue().toString();
-                                String departments = dataSnapshot.child("Departments").getValue().toString();
-                                String semester = dataSnapshot.child("Semester").getValue().toString();
-                                String group = dataSnapshot.child("Group").getValue().toString();
-
-                                universityName.setText(University);
-                                departmentName.setText(departments);
-                                semsterName.setText(semester);
-                                groupName.setText(group);
-
-                                mRef = FirebaseDatabase.getInstance().getReference().child("All University").child(University).child(departments).child(semester).child(group).child("Class Assignment");
-
-                                mRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                                        dataList.clear();
-
-                                        for (DataSnapshot uploadSnapshot : dataSnapshot.getChildren()) {
-                                            Data data = uploadSnapshot.getValue(Data.class);
-
-                                            dataList.add(data);
-
-                                        }
-                                        DataList adapter = new DataList(AssignmentDataActivity.this, dataList);
-                                        testViewData.setAdapter(adapter);
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                    }
-                                });
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         super.onStart();
     }
 }

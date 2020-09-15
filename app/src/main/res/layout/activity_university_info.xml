@@ -123,7 +123,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/student_cr_info_btn"
+            android:id="@+id/class_group_chat"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginStart="32dp"
@@ -131,7 +131,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/post_border"
-            android:text="CR's Info"
+            android:text="Group Chat"
             android:textAlignment="center"
             android:textColor="@color/neviBlue"
             app:layout_constraintBottom_toBottomOf="parent"

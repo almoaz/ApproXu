@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.approxsoft.approxu.Model.Data;
-import com.approxsoft.approxu.Model.DataList;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UniversityInfo extends AppCompatActivity {
     private Toolbar mToolBar;
-    private Button ClassTest, ClassAssignment, ClassRoutine, ClassNotice, ClassTeacher, ClassCr;
+    private Button ClassTest, ClassAssignment, ClassRoutine, ClassNotice, ClassTeacher, ClassGroupChat;
     private FirebaseAuth mAuth;
     private String CurrentUserId;
     private DatabaseReference userReff, universityReff,mRef;
@@ -52,7 +50,7 @@ public class UniversityInfo extends AppCompatActivity {
         ClassRoutine = findViewById(R.id.student_class_routine_btn);
         ClassNotice = findViewById(R.id.student_class_notice_btn);
         ClassTeacher = findViewById(R.id.student_class_teacher_btn);
-        ClassCr  = findViewById(R.id.student_cr_info_btn);
+        ClassGroupChat  = findViewById(R.id.class_group_chat);
         classTestCount = findViewById(R.id.class_Test_count);
         classAssignmentCount = findViewById(R.id.class_assignment_count);
         classRoutineCount = findViewById(R.id.class_routine_count);
@@ -62,6 +60,7 @@ public class UniversityInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent classTest = new Intent(UniversityInfo.this,ClassTestDataActivity.class);
+                classTest.putExtra("condition","classTest");
                 startActivity(classTest);
                 Animatoo.animateSlideLeft(UniversityInfo.this);
             }
@@ -70,15 +69,17 @@ public class UniversityInfo extends AppCompatActivity {
         ClassAssignment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent classTest = new Intent(UniversityInfo.this,AssignmentDataActivity.class);
+                Intent classTest = new Intent(UniversityInfo.this,ClassTestDataActivity.class);
                 startActivity(classTest);
+                classTest.putExtra("condition","classAssignment");
                 Animatoo.animateSlideLeft(UniversityInfo.this);
             }
         });
         ClassNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent classTest = new Intent(UniversityInfo.this,ClassNoticeDataActivity.class);
+                Intent classTest = new Intent(UniversityInfo.this,ClassTestDataActivity.class);
+                classTest.putExtra("condition","classNotice");
                 startActivity(classTest);
                 Animatoo.animateSlideLeft(UniversityInfo.this);
             }
@@ -86,7 +87,17 @@ public class UniversityInfo extends AppCompatActivity {
         ClassRoutine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent classTest = new Intent(UniversityInfo.this,ClassRoutineDataActivity.class);
+                Intent classTest = new Intent(UniversityInfo.this,ClassTestDataActivity.class);
+                classTest.putExtra("condition","ClassRoutine");
+                Animatoo.animateSlideLeft(UniversityInfo.this);
+                startActivity(classTest);
+            }
+        });
+        ClassGroupChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent classTest = new Intent(UniversityInfo.this,ClassGroupChatActivity.class);
+                classTest.putExtra("condition","ClassGroupChat");
                 startActivity(classTest);
                 Animatoo.animateSlideLeft(UniversityInfo.this);
             }

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/ap_bar"
-    android:background="@color/whiteColor"
+    android:background="@color/settingLinearLayoutColor"
     android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar">
 
 </androidx.appcompat.widget.Toolbar>

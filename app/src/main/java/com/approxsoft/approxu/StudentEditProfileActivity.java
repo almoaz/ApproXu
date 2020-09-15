@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -32,11 +34,15 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 public class StudentEditProfileActivity extends AppCompatActivity {
     private Toolbar mToolbar;
@@ -50,6 +56,7 @@ public class StudentEditProfileActivity extends AppCompatActivity {
     private Button UpdateProfileBtn;
     private StorageReference ImageReff;
     private ProgressDialog loadingBar;
+    Bitmap thumb_bitmap = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,6 +185,16 @@ public class StudentEditProfileActivity extends AppCompatActivity {
 
         }
 
+        Calendar calForDate = Calendar.getInstance();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+        final String saveCurrentDate = currentDate.format(calForDate.getTime());
+
+        Calendar calForTime = Calendar.getInstance();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+        final String saveCurrentTime = currentTime.format(calForTime.getTime());
+
+        final  String postRandomName = saveCurrentDate + saveCurrentTime;
+
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
@@ -186,13 +203,33 @@ public class StudentEditProfileActivity extends AppCompatActivity {
 
                 Uri resultUri = result.getUri();
 
-                StorageReference filePath = ImageReff.child(currentUserId + ".jpg");
+                File thumb_filePathUri = new File(resultUri.getPath());
+
+
+                try
+                {
+                    thumb_bitmap = new Compressor(StudentEditProfileActivity.this)
+                            .setMaxWidth(200)
+                            .setMaxHeight(200)
+                            .setQuality(80)
+                            .compressToBitmap(thumb_filePathUri);
+
+                }catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                thumb_bitmap.compress(Bitmap.CompressFormat.JPEG,80, byteArrayOutputStream);
+                final byte[] thumb_byte = byteArrayOutputStream.toByteArray();
+
+                StorageReference filePath = ImageReff.child(currentUserId).child("ProfileImage").child(resultUri.getLastPathSegment()+postRandomName+".jpg");
                 loadingBar.setTitle("Profile Image");
                 loadingBar.setMessage("Your profile picture uploading ...");
                 loadingBar.setCanceledOnTouchOutside(true);
                 loadingBar.show();
 
-                filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                filePath.putBytes(thumb_byte).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()) {
@@ -206,7 +243,7 @@ public class StudentEditProfileActivity extends AppCompatActivity {
                                 public void onSuccess(Uri uri) {
                                     final String downloadUrl = uri.toString();
 
-                                    studentReff.child("profileImage").setValue(downloadUrl)
+                                    studentReff.child(currentUserId).child("profileImage").setValue(downloadUrl)
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {

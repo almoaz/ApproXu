@@ -6,8 +6,8 @@
 
     <string name="menu_profile">Profile</string>
     <string name="menu_add_new_post">Add New Post</string>
-    <string name="menu_friends">Friends</string>
-    <string name="menu_find_friends">Find Friends</string>
+    <string name="menu_friends">Friend Requests</string>
+    <string name="menu_find_friends">Search Friends</string>
     <string name="menu_message">Message</string>
     <string name="menu_university">University</string>
     <string name="menu_settings">Settings</string>
@@ -16,4 +16,26 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="notification">Notification</string>
+
+    <string-array name="page_category">
+        <item>Select Page Category</item>
+        <item>Brand</item>
+        <item>Organization</item>
+        <item>Education</item>
+        <item>Life Style</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="page_type">
+        <item>Select Page Type</item>
+        <item>Personal Blog</item>
+        <item>Public Blog</item>
+    </string-array>
+
+
+    <string-array name="page_post_type">
+        <item>Public</item>
+        <item>Private</item>
+        <item>Star Friends</item>
+    </string-array>
 </resources>

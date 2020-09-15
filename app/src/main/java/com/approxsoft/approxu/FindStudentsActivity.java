@@ -208,7 +208,7 @@ public class FindStudentsActivity extends AppCompatActivity {
 
         public void setProfileImage(Context applicationContext, String profileimage) {
             CircleImageView image = (CircleImageView) mView.findViewById(R.id.all_student_profile_image);
-            Picasso.get().load(profileimage).placeholder(R.drawable.profile_holder).into(image);
+            Picasso.get().load(profileimage).placeholder(R.drawable.profile_icon).into(image);
         }
 
         public void setFullName(String fullName){

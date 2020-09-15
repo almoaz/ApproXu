@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReportProblemActivity"
+    android:background="@color/whiteColor">
+    <include
+        android:id="@+id/report_a_problem_app_bar"
+        layout="@layout/navigation_ap_bar">
+
+    </include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/report_a_problem_app_bar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/report_problem_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/blackColor"
+                android:textSize="17sp"
+                android:text="You can chose select item and report a problem this system you founded"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+            android:id="@+id/message_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Message and Chat"
+            android:paddingLeft="20dp"
+            android:textSize="16sp"
+            android:background="@color/settingLinearLayoutColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/report_problem_description" />
+
+            <TextView
+                android:id="@+id/status_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Status or Post"
+                android:paddingLeft="20dp"
+                android:textSize="16sp"
+                android:background="@color/settingLinearLayoutColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/message_report" />
+
+            <TextView
+                android:id="@+id/wide_display_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Wide display"
+                android:paddingLeft="20dp"
+                android:textSize="16sp"
+                android:background="@color/settingLinearLayoutColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/status_report" />
+
+
+            <TextView
+                android:id="@+id/sign_in_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Sign in or sign out"
+                android:paddingLeft="20dp"
+                android:textSize="16sp"
+                android:background="@color/settingLinearLayoutColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wide_display_report" />
+
+            <TextView
+                android:id="@+id/flag_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Flag"
+                android:paddingLeft="20dp"
+                android:textSize="16sp"
+                android:background="@color/settingLinearLayoutColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sign_in_report" />
+
+            <TextView
+                android:id="@+id/profile_lock_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Profile lock"
+                android:paddingLeft="20dp"
+                android:textSize="16sp"
+                android:background="@color/settingLinearLayoutColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/flag_report" />
+
+            <TextView
+                android:id="@+id/other_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Other"
+                android:paddingLeft="20dp"
+                android:textSize="16sp"
+                android:background="@color/settingLinearLayoutColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_lock_report" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PageEditActivity"
+    android:background="@color/whiteColor">
+
+    <include
+        android:id="@+id/page_edit_app_bar"
+        layout="@layout/navigation_ap_bar">
+    </include>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/page_edit_app_bar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/edit_page_constraint_layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/post_border">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Profile Image"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:background="@drawable/inputs_background"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp"
+                    android:textColor="@color/normalBlack"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/edit_page_profile_Image"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:src="@drawable/profile_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/edit_page_add_profile_image_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/add_cover_image_icon"
+                    app:civ_border_color="@color/whiteColor"
+                    app:civ_circle_background_color="@color/whiteColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_page_profile_Image"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_page_profile_Image"
+                    app:layout_constraintStart_toStartOf="@+id/edit_page_profile_Image"
+                    app:layout_constraintTop_toTopOf="@+id/edit_page_profile_Image" />
+
+                <TextView
+                    android:id="@+id/edit_page_hide_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='""'
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="invisible" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/divider10"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:background="@color/settingLinearLayoutColor"
+                tools:layout_editor_absoluteX="1dp"
+                android:layout_below="@+id/edit_page_constraint_layout1"
+                tools:layout_editor_absoluteY="163dp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/edit_page_constraint_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/divider10"
+                android:background="@drawable/post_border">
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:background="@drawable/inputs_background"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="2dp"
+                    android:text="Cover Picture"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/normalBlack"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/edit_page_cover_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/blank_cover_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/edit_page_add_cover_image_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/add_cover_image_icon"
+                    app:civ_border_color="@color/whiteColor"
+                    app:civ_circle_background_color="@color/whiteColor"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_page_cover_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/edit_page_cover_image"
+                    app:layout_constraintTop_toTopOf="@+id/edit_page_cover_image" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <View
+                android:id="@+id/divider11"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:background="@color/settingLinearLayoutColor"
+                tools:layout_editor_absoluteX="1dp"
+                android:layout_below="@+id/edit_page_constraint_layout2"
+                tools:layout_editor_absoluteY="163dp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/edit_page_constraint_layout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/divider11">
+
+                <TextView
+                    android:id="@+id/edit_page_page_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/inputs_background"
+                    android:padding="8dp"
+                    android:text="Page Name"
+                    android:textAllCaps="false"
+                    android:textColor="@color/normalBlack"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/edit_page_page_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/inputs_background"
+                    android:hint="user_name"
+                    android:padding="6dp"
+                    android:textColor="@color/normalBlack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_page_page_name" />
+
+                <EditText
+                    android:id="@+id/edit_page_page_phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/inputs_background"
+                    android:hint="Phone Number"
+                    android:padding="6dp"
+                    android:textColor="@color/normalBlack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_page_page_user_name" />
+
+
+
+                <EditText
+                    android:id="@+id/edit_page_page_website_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/inputs_background"
+                    android:hint="Website Link"
+                    android:padding="6dp"
+                    android:textColor="@color/normalBlack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_page_page_phone_number" />
+
+
+                <EditText
+                    android:id="@+id/edit_page_page_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/inputs_background"
+                    android:hint="Location"
+                    android:padding="6dp"
+                    android:textColor="@color/normalBlack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_page_page_website_link" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/edit_page_data_change_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_page_constraint_layout3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="32dp"
+                android:background="@drawable/inputs_background"
+                android:text="Save Changes"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/normalBlack"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

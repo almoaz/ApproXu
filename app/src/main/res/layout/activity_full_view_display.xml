@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FullViewDisplayActivity">
+
+    <include
+        android:id="@+id/full_view_display_ap_bar"
+        layout="@layout/navigation_ap_bar">
+
+    </include>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/full_view_display_ap_bar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/full_display_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set up full view display"
+                android:textColor="@color/blackColor"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"/>
+
+            <TextView
+                android:id="@+id/full_display_view_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/full_display_view"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:textSize="16sp"
+                android:text="If you set up full view display when you can permission to home page full view just one click on home page top of search approxu layout last right side"/>
+
+
+            <Button
+                android:id="@+id/enable_full_view_display_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/full_display_view_message"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/post_btn_background"
+                android:textColor="@color/blackColor"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:visibility="gone"
+                android:textAllCaps="false"
+                android:text="Enable full view display"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"/>
+
+            <Button
+                android:id="@+id/disable_full_view_display_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/full_display_view_message"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/post_btn_background"
+                android:textColor="@color/blackColor"
+                android:textSize="16sp"
+                android:visibility="gone"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:text="Disable full view display"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"/>
+        </RelativeLayout>
+        </ScrollView>
+
+
+</RelativeLayout>

@@ -2,7 +2,6 @@ package com.approxsoft.approxu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,9 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,16 +22,23 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.Objects;
 
 public class SignInActivity extends AppCompatActivity {
 
-    private EditText signInEmail, signInPassword;
-    private FirebaseAnalytics mFirebaseAnalytics;
-    private TextView createNewAccount, forgotPassword;
+    EditText signInEmail, signInPassword;
+    FirebaseAnalytics mFirebaseAnalytics;
+    TextView createNewAccount, forgotPassword, SubSignInEmailText, SubSignInPasswordText, goBack;
     private Button signInBtn;
     private ProgressBar progressBar;
-    private FirebaseAuth mAuth;
-    private String emailPattern ="[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
+    FirebaseAuth mAuth;
+    String emailPattern ="[a-z0-9._-]+@[a-z]+.[a-z]+";
+    String currenUserId,CURRENT_STATE;
+    DatabaseReference userReff;
+    RelativeLayout signInLayout, signUpLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +50,19 @@ public class SignInActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-        signInEmail = (EditText) findViewById(R.id.sign_in_email);
-        signInPassword = (EditText) findViewById(R.id.sign_in_password);
-        createNewAccount = (TextView) findViewById(R.id.create_a_new_account);
-        forgotPassword = (TextView) findViewById(R.id.forgot_password);
-        signInBtn = (Button) findViewById(R.id.sign_in_btn);
+        signInEmail = findViewById(R.id.sign_in_email);
+        signInPassword = findViewById(R.id.sign_in_password);
+        createNewAccount = findViewById(R.id.create_a_new_account);
+        forgotPassword = findViewById(R.id.forgot_password);
+        signInBtn = findViewById(R.id.sign_in_btn);
         progressBar = findViewById(R.id.sign_in_progressBar);
+        SubSignInEmailText = findViewById(R.id.sub_email_text);
+        SubSignInPasswordText = findViewById(R.id.sub_password_text);
+        signInLayout = findViewById(R.id.sign_in_layout);
+        signUpLayout = findViewById(R.id.sign_up_layout);
+        goBack = findViewById(R.id.go_to_sign_in_activity);
+
+        CURRENT_STATE = "sign_in_activity";
 
 
         signInEmail.addTextChangedListener(new TextWatcher() {
@@ -60,11 +73,15 @@ public class SignInActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                SubSignInEmailText.setVisibility(View.VISIBLE);
+                SubSignInPasswordText.setVisibility(View.INVISIBLE);
                checkInputs();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+
 
             }
         });
@@ -78,6 +95,9 @@ public class SignInActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                SubSignInPasswordText.setVisibility(View.VISIBLE);
+                SubSignInEmailText.setVisibility(View.INVISIBLE);
               checkInputs();
             }
 
@@ -87,18 +107,33 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
+
+
         createNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                Intent signUpIntent = new Intent(SignInActivity.this,SignUpActivity.class);
-                startActivity(signUpIntent);
+                signInLayout.setVisibility(View.GONE);
+                signUpLayout.setVisibility(View.VISIBLE);
+                CURRENT_STATE = "sign_up_activity";
+            }
+        });
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                signUpLayout.setVisibility(View.GONE);
+                signInLayout.setVisibility(View.VISIBLE);
+                CURRENT_STATE = "sign_in_activity";
+
             }
         });
 
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SubSignInEmailText.setVisibility(View.INVISIBLE);
+                SubSignInPasswordText.setVisibility(View.INVISIBLE);
                 checkEmailAndPassword();
             }
         });
@@ -117,20 +152,52 @@ public class SignInActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (CURRENT_STATE.equals("sign_in_activity"))
+        {
+
+            SignInActivity.super.onBackPressed();
+
+            if (CURRENT_STATE.equals("sign_in_activity"))
+            {
+                Toast.makeText(SignInActivity.this,"Try again",Toast.LENGTH_LONG).show();
+                if (CURRENT_STATE.equals("sign_in_activity"))
+                {
+                    SignInActivity.super.onBackPressed();
+                }
+            }
+        }
+        else if (CURRENT_STATE.equals("sign_up_activity"))
+        {
+            signUpLayout.setVisibility(View.GONE);
+            signInLayout.setVisibility(View.VISIBLE);
+
+
+
+        }
+
+    }
 
     public void checkInputs(){
 
             if (!TextUtils.isEmpty(signInEmail.getText().toString()) ){
-                if (!TextUtils.isEmpty(signInPassword.getText().toString())&& signInPassword.length() >= 8){
+
+                if (!TextUtils.isEmpty(signInPassword.getText().toString())){
+
 
                         signInBtn.setEnabled(true);
                         signInBtn.setTextColor(Color.rgb(97,89,89));
 
             }else {
+
+                    SubSignInPasswordText.setVisibility(View.INVISIBLE);
                 signInBtn.setEnabled(false);
                 signInBtn.setTextColor(Color.argb(50,112,112,112));
             }
         }else {
+                SubSignInEmailText.setVisibility(View.INVISIBLE);
             signInBtn.setEnabled(false);
             signInBtn.setTextColor(Color.argb(50,112,112,112));
         }
@@ -145,6 +212,7 @@ public class SignInActivity extends AppCompatActivity {
                 signInBtn.setEnabled(false);
                 signInBtn.setTextColor(Color.argb(50,112,112,112));
 
+
                 mAuth.signInWithEmailAndPassword(signInEmail.getText().toString(),signInPassword.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -153,7 +221,7 @@ public class SignInActivity extends AppCompatActivity {
                                     verifyEmailFirst();
 
                                 }else {
-                                    String error = task.getException().getMessage();
+                                    String error = Objects.requireNonNull(task.getException()).getMessage();
                                     Toast.makeText(SignInActivity.this,error,Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.INVISIBLE);
                                     signInBtn.setEnabled(true);
@@ -173,10 +241,10 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     public void verifyEmailFirst(){
-        FirebaseUser firebaseUser = mAuth.getInstance().getCurrentUser();
-        boolean emailVerify = firebaseUser.isEmailVerified();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        boolean emailVerify = Objects.requireNonNull(firebaseUser).isEmailVerified();
         if (emailVerify){
-           sendUserToMainActivity();
+            sendUserToMainActivity();
 
         }else {
             Toast.makeText(SignInActivity.this,"Verify Your Email",Toast.LENGTH_SHORT).show();
@@ -191,4 +259,5 @@ public class SignInActivity extends AppCompatActivity {
         Animatoo.animateFade(this);
         finish();
     }
+
 }

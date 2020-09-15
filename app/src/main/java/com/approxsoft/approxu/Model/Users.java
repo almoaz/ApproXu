@@ -1,7 +1,7 @@
 package com.approxsoft.approxu.Model;
 
 public class Users {
-    String uid, fullName, profileImage;
+    private String uid, fullName, profileImage;
 
     public Users()
     {

@@ -17,14 +17,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class AboutActivity extends AppCompatActivity {
 
-    private Toolbar mToolbar;
+    Toolbar mToolbar;
 
-    private TextView universityName, subjectName, semester_name,Gender, DateOfBirth, Religion, CurrentCity, HomeTown, emailId, phonNumber;;
+    private TextView universityName, subjectName, semester_name,Gender, DateOfBirth, Religion, CurrentCity, HomeTown, emailId, phonNumber;
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference UserReff;
+    FirebaseAuth mAuth;
+    DatabaseReference userReference;
     String currentUserId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +34,12 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
 
         mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.getCurrentUser().getUid();
-        UserReff = FirebaseDatabase.getInstance().getReference().child("All Users").child(currentUserId);
+        currentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        userReference = FirebaseDatabase.getInstance().getReference().child("All Users").child(currentUserId);
 
         mToolbar = findViewById(R.id.about_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("About");
 
@@ -54,23 +56,23 @@ public class AboutActivity extends AppCompatActivity {
         HomeTown = findViewById(R.id.about_hometown_name);
 
 
-        UserReff.addValueEventListener(new ValueEventListener() {
+        userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
                 if (dataSnapshot.exists())
                 {
 
-                    String university = dataSnapshot.child("university").getValue().toString();
-                    String subject = dataSnapshot.child("departments").getValue().toString();
-                    String semester = dataSnapshot.child("semester").getValue().toString();
-                    String currentCity = dataSnapshot.child("currentCity").getValue().toString();
-                    String homeTown = dataSnapshot.child("homeTown").getValue().toString();
-                    String myDOB = dataSnapshot.child("dateOfBirth").getValue().toString();
-                    String religion = dataSnapshot.child("religion").getValue().toString();
-                    String myGender = dataSnapshot.child("gender").getValue().toString();
-                    String email = dataSnapshot.child("email").getValue().toString();
-                    String phone = dataSnapshot.child("phoneNo").getValue().toString();
+                    String university = Objects.requireNonNull(dataSnapshot.child("university").getValue()).toString();
+                    String subject = Objects.requireNonNull(dataSnapshot.child("departments").getValue()).toString();
+                    String semester = Objects.requireNonNull(dataSnapshot.child("semester").getValue()).toString();
+                    String currentCity = Objects.requireNonNull(dataSnapshot.child("currentCity").getValue()).toString();
+                    String homeTown = Objects.requireNonNull(dataSnapshot.child("homeTown").getValue()).toString();
+                    String myDOB = Objects.requireNonNull(dataSnapshot.child("dateOfBirth").getValue()).toString();
+                    String religion = Objects.requireNonNull(dataSnapshot.child("religion").getValue()).toString();
+                    String myGender = Objects.requireNonNull(dataSnapshot.child("gender").getValue()).toString();
+                    String email = Objects.requireNonNull(dataSnapshot.child("email").getValue()).toString();
+                    String phone = Objects.requireNonNull(dataSnapshot.child("phoneNo").getValue()).toString();
 
 
 

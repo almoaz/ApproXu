@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whiteColor">
+    android:background="@color/settingLinearLayoutColor">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/custom_profile_image"
@@ -15,12 +15,22 @@
         android:layout_marginTop="2dp"
         android:cropToPadding="true" />
 
+    <ImageView
+        android:id="@+id/message_online_status"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignEnd="@+id/custom_profile_image"
+        android:layout_alignBottom="@+id/custom_profile_image"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/online_icon" />
+
     <TextView
         android:id="@+id/custom_profile_name"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:text="display userName"
-        android:textColor="@color/neviBlue"
+        android:textColor="@color/blackColor"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginTop="4dp"
@@ -33,10 +43,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/custom_profile_name"
         android:text="last seen"
-        android:textColor="@color/neviBlue"
+        android:textColor="@color/blackColor"
         android:textSize="14sp"
         android:layout_marginTop="25dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"/>
+
 
 </RelativeLayout>

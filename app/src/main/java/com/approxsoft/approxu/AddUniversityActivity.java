@@ -44,7 +44,7 @@ public class AddUniversityActivity extends AppCompatActivity {
     String CurrentUserId, currentUser;
     Toolbar mToolBar;
     private Spinner UniversitySpinner;
-    String Code1Pattern ="[j-tA-M5-9]+[._*+/]+[f-nM-O0-5]+@[A-Z]+.[a-z]";
+    String Code1Pattern ="[j-tA-M5-9]+";
     String IdPattern ="[0-9]+";
 
 

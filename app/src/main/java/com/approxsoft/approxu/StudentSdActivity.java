@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -104,7 +103,7 @@ public class StudentSdActivity extends AppCompatActivity {
                                 sdPayment.setText(payment);
                                 sdDue.setText(due);
 
-                                Picasso.get().load(profileImage).into(SdUserProfileImage);
+                                Picasso.get().load(profileImage).placeholder(R.drawable.profile_icon).into(SdUserProfileImage);
 
                             }
                         }

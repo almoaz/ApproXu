@@ -16,11 +16,10 @@
         android:layout_height="match_parent"
         android:layout_below="@id/about_toolbar"
         android:layout_alignParentStart="true"
-        android:background="@color/settingsBackground">
+        android:background="@color/whiteColor">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="@color/whiteColor"
             android:layout_height="match_parent">
 
 

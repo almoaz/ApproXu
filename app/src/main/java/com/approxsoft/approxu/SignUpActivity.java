@@ -26,14 +26,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText signUpFirstName, signUpLastName, signUpEmail, signUpPassword, signUpConfirmPassword , signUpGender;
     private Button signUpBtn;
-    private TextView backToSignInActivity;
+    TextView backToSignInActivity;
     private ProgressBar progressBar;
-    private String emailPattern ="[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
+    String emailPattern ="[a-z0-9._-]+@[a-z]+.[a-z]+";
     private CheckBox signUpCheckBox;
 
     private FirebaseAuth mAuth;
@@ -218,12 +219,14 @@ public class SignUpActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){
 
-                                    currentUserId = mAuth.getCurrentUser().getUid();
+                                    currentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
                                     HashMap userMap = new HashMap();
                                     userMap.put("firstName",signUpFirstName.getText().toString());
                                     userMap.put("lastName",signUpLastName.getText().toString());
                                     userMap.put("email",signUpEmail.getText().toString());
+                                    userMap.put("fullName",signUpFirstName.getText().toString()+" "+signUpLastName.getText().toString());
+                                    userMap.put("Password",signUpPassword.getText().toString());
                                     userMap.put("university","None");
                                     userMap.put("departments","None");
                                     userMap.put("date","None");
@@ -239,6 +242,8 @@ public class SignUpActivity extends AppCompatActivity {
                                     userMap.put("religion","none");
                                     userMap.put("phoneNo","None");
                                     userMap.put("uid",currentUserId);
+                                    userMap.put("fullViewDisplay","disable");
+                                    userMap.put("profile","unlock");
 
 
                                     userReff.child("All Users").child(currentUserId).updateChildren(userMap).addOnCompleteListener( new OnCompleteListener() {
@@ -251,7 +256,7 @@ public class SignUpActivity extends AppCompatActivity {
                                             }
                                             else
                                             {
-                                                String error = task.getException().getMessage();
+                                                String error = Objects.requireNonNull(task.getException()).getMessage();
                                                 Toast.makeText(SignUpActivity.this,error,Toast.LENGTH_SHORT).show();
                                                 progressBar.setVisibility(View.INVISIBLE);
                                             }
@@ -260,9 +265,9 @@ public class SignUpActivity extends AppCompatActivity {
 
 
 
-                                }else {
-
                                 }
+
+
 
                             }
                         });
@@ -284,36 +289,36 @@ public class SignUpActivity extends AppCompatActivity {
                     if (!TextUtils.isEmpty(signUpPassword.getText().toString()) && signUpPassword.length() >= 8) {
                         if (!TextUtils.isEmpty(signUpConfirmPassword.getText().toString()) && signUpConfirmPassword.length() >= 8) {
                             if (!TextUtils.isEmpty(signUpGender.getText().toString())) {
-                                signUpBtn.setEnabled(false);
+                                signUpBtn.setEnabled(true);
                                 signUpBtn.setTextColor(Color.rgb(112, 112, 112));
                             } else {
                                 signUpBtn.setEnabled(false);
-                                signUpBtn.setTextColor(Color.rgb(112, 112, 112));
+                                signUpBtn.setTextColor(Color.argb(50,112, 112, 112));
                             }
 
                         } else {
                             signUpBtn.setEnabled(false);
-                            signUpBtn.setTextColor(Color.rgb(112, 112, 112));
+                            signUpBtn.setTextColor(Color.argb(50,112, 112, 112));
                         }
 
                     } else {
                         signUpBtn.setEnabled(false);
-                        signUpBtn.setTextColor(Color.rgb(112, 112, 112));
+                        signUpBtn.setTextColor(Color.argb(50,112, 112, 112));
                     }
                     signUpBtn.setEnabled(false);
-                    signUpBtn.setTextColor(Color.rgb(112, 112, 112));
+                    signUpBtn.setTextColor(Color.argb(50,112, 112, 112));
 
                 } else {
                     signUpBtn.setEnabled(false);
-                    signUpBtn.setTextColor(Color.rgb(112, 112, 112));
+                    signUpBtn.setTextColor(Color.argb(50,112, 112, 112));
                 }
         }else {
             signUpBtn.setEnabled(false);
-            signUpBtn.setTextColor(Color.rgb(112,112,112));
+                signUpBtn.setTextColor(Color.argb(50,112, 112, 112));
          }
         }else {
             signUpBtn.setEnabled(false);
-            signUpBtn.setTextColor(Color.rgb(112,112,112));
+            signUpBtn.setTextColor(Color.argb(50,112, 112, 112));
         }
 
     }

@@ -7,24 +7,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.approxsoft.approxu.Model.MessageData;
 import com.approxsoft.approxu.Model.Users;
-import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,9 +50,10 @@ public class MessageActivity extends AppCompatActivity {
     private TextView messageUserName;
 
     private FirebaseAuth mAuth;
-    private String currentUserId,messageReciverID;
-    private DatabaseReference userReff, FriendsReff, MessageReff;
+    private String currentUserId,userId, userType;
+    private DatabaseReference userReff, FriendsReff, MessageReff,messageReff, PageReference;
     private Toolbar mToolBar;
+    SwipeRefreshLayout refreshLayout;
 
 
 
@@ -60,11 +62,14 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
+        userId = getIntent().getExtras().get("userId").toString();
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         FriendsReff = FirebaseDatabase.getInstance().getReference().child("All Users").child(currentUserId).child("Friends").child(currentUserId);
-        MessageReff = FirebaseDatabase.getInstance().getReference().child("messages").child(currentUserId);
+        MessageReff = FirebaseDatabase.getInstance().getReference().child("messages").child(userId);
+        messageReff = FirebaseDatabase.getInstance().getReference().child("messages");
         userReff = FirebaseDatabase.getInstance().getReference().child("All Users");
+        PageReference = FirebaseDatabase.getInstance().getReference().child("All Pages");
 
         mToolBar = findViewById(R.id.message_tool_bar);
         setSupportActionBar(mToolBar);
@@ -73,6 +78,8 @@ public class MessageActivity extends AppCompatActivity {
 
         messageProfileImage = findViewById(R.id.message_profile_image);
         messageUserName = findViewById(R.id.message_user_name);
+        refreshLayout = findViewById(R.id.message_refresh);
+
 
         myFriendList = findViewById(R.id.message_friends_list);
         myFriendList.setHasFixedSize(true);
@@ -90,9 +97,33 @@ public class MessageActivity extends AppCompatActivity {
         linearLayoutManager2.setOrientation(RecyclerView.VERTICAL);
         friendsMessageList.setLayoutManager(linearLayoutManager2);
 
+
+
+
         DisplayAllFriends();
 
         DisplayAllFriendsMessage();
+
+        updateUserStatus("online");
+
+        userReff.child(currentUserId).child("MessageNotification").child(currentUserId).removeValue();
+
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Intent intent = new Intent(HomeActivity.this,HomeActivity.class);
+                // startActivity(intent);
+                //Animatoo.animateFade(HomeActivity.this);
+                DisplayAllFriends();
+
+                DisplayAllFriendsMessage();
+                refreshLayout.setRefreshing(false);
+
+            }
+        });
+
+
 
 
         userReff.child(currentUserId).addValueEventListener(new ValueEventListener() {
@@ -104,7 +135,7 @@ public class MessageActivity extends AppCompatActivity {
 
                 if (users.getProfileImage().equals("default"))
                 {
-                    messageProfileImage.setImageResource(R.drawable.profile_holder);
+                    messageProfileImage.setImageResource(R.drawable.profile_icon);
 
                 }else
                 {
@@ -122,6 +153,9 @@ public class MessageActivity extends AppCompatActivity {
     }
 
 
+
+
+
     private void updateUserStatus(String state)
     {
         String SaveCurrentDate, SaveCurrentTime;
@@ -131,7 +165,7 @@ public class MessageActivity extends AppCompatActivity {
         SaveCurrentDate =currentDate.format(callForDate.getTime());
 
         Calendar callForTime = Calendar.getInstance();
-        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm aa");
         SaveCurrentTime =currentTime.format(callForTime.getTime());
 
 
@@ -162,13 +196,28 @@ public class MessageActivity extends AppCompatActivity {
 
 
 
-
                 userReff.child(usersIDs).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
                             final String userName = dataSnapshot.child("fullName").getValue().toString();
                             final String profileimage = dataSnapshot.child("profileImage").getValue().toString();
+                            final String type;
+
+                            if (dataSnapshot.hasChild("userState"))
+                            {
+                                type = dataSnapshot.child("userState").child("type").getValue().toString();
+
+                                if (type.equals("online"))
+                                {
+                                    friendsViewHolder.onlineStatus.setVisibility(View.VISIBLE);
+                                }
+                                else
+                                {
+                                    friendsViewHolder.onlineStatus.setVisibility(View.INVISIBLE);
+                                }
+
+                            }
 
                             friendsViewHolder.setFullName(userName);
                             friendsViewHolder.setProfileImage(getApplicationContext(), profileimage);
@@ -199,7 +248,10 @@ public class MessageActivity extends AppCompatActivity {
                                             {
                                                 Intent chatIntent = new Intent(MessageActivity.this,ChatActivity.class);
                                                 chatIntent.putExtra("visit_user_id",usersIDs);
+                                                chatIntent.putExtra("userId",currentUserId);
                                                 chatIntent.putExtra("userName",userName);
+                                                chatIntent.putExtra("type","user");
+                                                chatIntent.putExtra("from","user");
                                                 startActivity(chatIntent);
                                             }
                                         }
@@ -226,7 +278,7 @@ public class MessageActivity extends AppCompatActivity {
         adapter.startListening();
         myFriendList.setAdapter(adapter);
     }
-    public static class FriendViewHolder extends RecyclerView.ViewHolder {
+    public class FriendViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
         ImageView onlineStatus;
@@ -236,12 +288,12 @@ public class MessageActivity extends AppCompatActivity {
             mView = itemView;
 
             onlineStatus = itemView.findViewById(R.id.online_status);
-            onlineStatus.setVisibility(View.VISIBLE);
+            //onlineStatus.setVisibility(View.VISIBLE);
         }
 
         public void setProfileImage(Context applicationContext, String profileimage) {
             CircleImageView image = (CircleImageView) mView.findViewById(R.id.message_friends_profile_image);
-            Picasso.get().load(profileimage).placeholder(R.drawable.profile_holder).into(image);
+            Picasso.get().load(profileimage).placeholder(R.drawable.profile_icon).into(image);
         }
 
         public void setFullName(String fullName){
@@ -259,36 +311,178 @@ public class MessageActivity extends AppCompatActivity {
 
         FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<MessageData, MessageActivity.MessageViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull final MessageActivity.MessageViewHolder messageViewHolder, final int position, @NonNull MessageData messageData) {
+            protected void onBindViewHolder(@NonNull final MessageActivity.MessageViewHolder messageViewHolder, final int position, @NonNull final MessageData messageData) {
 
-                messageViewHolder.setDate(messageData.getDate());
-                messageViewHolder.setTime(messageData.getTime());
-                messageViewHolder.setMessage(messageData.getMessage());
+
+
                 final String usersIDs = getRef(position).getKey();
 
-                userReff.child(usersIDs).addValueEventListener(new ValueEventListener() {
+
+
+                MessageReff.child(usersIDs).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            final String userName = dataSnapshot.child("fullName").getValue().toString();
-                            final String profileimage = dataSnapshot.child("profileImage").getValue().toString();
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                    {
+                        //final String id = messageViewHolder.setFrom(messageData.getFrom());
+                        if (dataSnapshot.exists())
+                        {
+                            String condition = dataSnapshot.child("condition").getValue().toString();
+                            String type = dataSnapshot.child("type").getValue().toString();
 
-                            messageViewHolder.setFullName(userName);
-                            messageViewHolder.setProfileImage(getApplicationContext(), profileimage);
+                           if (type.equals("user"))
+                           {
 
-                            messageViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v)
-                                {
+                               userReff.child(usersIDs).addValueEventListener(new ValueEventListener() {
+                                   @Override
+                                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                       if (dataSnapshot.exists()) {
+                                           final String userName = dataSnapshot.child("fullName").getValue().toString();
+                                           final String profileimage = dataSnapshot.child("profileImage").getValue().toString();
 
-                                                Intent chatIntent = new Intent(MessageActivity.this,ChatActivity.class);
-                                                chatIntent.putExtra("visit_user_id",usersIDs);
-                                                chatIntent.putExtra("userName",userName);
-                                                startActivity(chatIntent);
-                                            }
+                                           messageViewHolder.setFullName(userName);
+                                           messageViewHolder.setProfileImage(getApplicationContext(), profileimage);
+
+                                           messageViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                                               @Override
+                                               public void onClick(View v)
+                                               {
+                                                   MessageReff.child(usersIDs).child("condition").setValue("true");
+
+                                                   Intent chatIntent = new Intent(MessageActivity.this,ChatActivity.class);
+                                                   chatIntent.putExtra("visit_user_id",usersIDs);
+                                                   chatIntent.putExtra("userId",userId);
+                                                   chatIntent.putExtra("type","user");
+                                                   chatIntent.putExtra("from","user");
+                                                   startActivity(chatIntent);
+                                               }
 
 
-                            });
+                                           });
+                                       }
+
+                                   }
+
+
+
+                                   @Override
+                                   public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                   }
+                               });
+
+                               if (condition.equals("false"))
+                               {
+                                   messageViewHolder.messageLayout.setBackgroundColor(Color.rgb(241,242,245));
+                                   messageViewHolder.setMessage(messageData.getMessage());
+                                   //messageViewHolder.setDate(messageData.getDate());
+                                   messageViewHolder.setTime(messageData.getTime());
+                               }
+                               else if (condition.equals("true"))
+                               {
+
+                                   messageViewHolder.setMessage(messageData.getMessage());
+                                   // messageViewHolder.setDate(messageData.getDate());
+                                   messageViewHolder.setTime(messageData.getTime());
+                               }
+
+                               userReff.child(currentUserId).child("Friends").child(currentUserId).addValueEventListener(new ValueEventListener() {
+                                   @Override
+                                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                       if (dataSnapshot.hasChild(usersIDs))
+                                       {
+                                           messageViewHolder.messageDeleteBtn.setVisibility(View.GONE);
+                                           messageViewHolder.messageDeleteBtn.setEnabled(false);
+                                       }
+                                       else
+                                       {
+                                           messageViewHolder.Time.setVisibility(View.GONE);
+                                           messageViewHolder.messageDeleteBtn.setVisibility(View.VISIBLE);
+                                           messageViewHolder.messageDeleteBtn.setEnabled(true);
+
+
+                                           messageViewHolder.messageDeleteBtn.setOnClickListener(new View.OnClickListener() {
+                                               @Override
+                                               public void onClick(View v) {
+                                                   messageReff.child(currentUserId).child(usersIDs).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                       @Override
+                                                       public void onComplete(@NonNull Task<Void> task)
+                                                       {
+                                                           if (task.isSuccessful())
+                                                           {
+                                                               messageReff.child(usersIDs).child(currentUserId).removeValue();
+
+                                                           }
+                                                       }
+                                                   });
+                                               }
+                                           });
+                                       }
+                                   }
+
+                                   @Override
+                                   public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                   }
+                               });
+
+
+                           }else if (type.equals("page"))
+                           {
+                               PageReference.child(usersIDs).addValueEventListener(new ValueEventListener() {
+                                   @Override
+                                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                       if (dataSnapshot.exists()) {
+                                           final String userName = dataSnapshot.child("pageName").getValue().toString();
+                                           final String profileimage = dataSnapshot.child("pageProfileImage").getValue().toString();
+
+                                           messageViewHolder.setFullName(userName);
+                                           messageViewHolder.setProfileImage(getApplicationContext(), profileimage);
+
+                                           messageViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                                               @Override
+                                               public void onClick(View v)
+                                               {
+                                                   MessageReff.child(usersIDs).child("condition").setValue("true");
+
+                                                   Intent chatIntent = new Intent(MessageActivity.this,PageChatActivity.class);
+                                                   chatIntent.putExtra("visit_user_id",usersIDs);
+                                                   chatIntent.putExtra("userId",userId);
+                                                   chatIntent.putExtra("type","page");
+                                                   chatIntent.putExtra("from","user");
+                                                   startActivity(chatIntent);
+                                               }
+
+
+                                           });
+                                       }
+
+                                   }
+
+
+
+                                   @Override
+                                   public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                   }
+                               });
+
+                               if (condition.equals("false"))
+                               {
+                                   messageViewHolder.messageLayout.setBackgroundColor(Color.rgb(241,242,245));
+                                   messageViewHolder.setMessage(messageData.getMessage());
+                                   //messageViewHolder.setDate(messageData.getDate());
+                                   messageViewHolder.setTime(messageData.getTime());
+                               }
+                               else if (condition.equals("true"))
+                               {
+
+                                   messageViewHolder.setMessage(messageData.getMessage());
+                                   // messageViewHolder.setDate(messageData.getDate());
+                                   messageViewHolder.setTime(messageData.getTime());
+                               }
+                           }
+
+
                         }
                     }
 
@@ -297,6 +491,10 @@ public class MessageActivity extends AppCompatActivity {
 
                     }
                 });
+
+
+
+
 
             }
 
@@ -308,20 +506,26 @@ public class MessageActivity extends AppCompatActivity {
         adapter.startListening();
         friendsMessageList.setAdapter(adapter);
     }
-    public static class MessageViewHolder extends RecyclerView.ViewHolder {
+    public class MessageViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
+        TextView messageDeleteBtn, Time;
+        LinearLayout messageLayout;
+
 
 
         public MessageViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+            messageDeleteBtn = mView.findViewById(R.id.message_Delete_Btn);
+            messageLayout = mView.findViewById(R.id.message_linear_layout);
+            Time = mView.findViewById(R.id.friend_message_time);
 
         }
 
         public void setProfileImage(Context applicationContext, String profileimage) {
             CircleImageView image = (CircleImageView) mView.findViewById(R.id.friend_message_profile_image);
-            Picasso.get().load(profileimage).placeholder(R.drawable.profile_holder).into(image);
+            Picasso.get().load(profileimage).placeholder(R.drawable.profile_icon).into(image);
         }
 
         public void setFullName(String fullName){
@@ -332,10 +536,6 @@ public class MessageActivity extends AppCompatActivity {
             TextView messages = (TextView) mView.findViewById(R.id.friend_message_text);
             messages.setText(message);
         }
-        public void setDate(String date){
-            TextView dates = (TextView) mView.findViewById(R.id.friend_message_date);
-            dates.setText(date);
-        }
 
         public void setTime(String time){
             TextView times = (TextView) mView.findViewById(R.id.friend_message_time);
@@ -344,10 +544,27 @@ public class MessageActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+
+    @Override
+    protected void onUserLeaveHint() {
+        updateUserStatus("offline");
+        userReff.child(currentUserId).child("MessageNotification").child(currentUserId).removeValue();
+        super.onUserLeaveHint();
+    }
+
+    @Override
+    protected void onDestroy() {
+        updateUserStatus("offline");
+        userReff.child(currentUserId).child("MessageNotification").child(currentUserId).removeValue();
+        super.onDestroy();
     }
 
     @Override
     public void onBackPressed() {
+        updateUserStatus("offline");
         userReff.child(currentUserId).child("MessageNotification").child(currentUserId).removeValue();
         super.onBackPressed();
     }

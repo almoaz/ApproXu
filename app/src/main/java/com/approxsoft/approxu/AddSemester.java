@@ -21,17 +21,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AddSemester extends AppCompatActivity {
 
     Spinner spinner;
     private EditText spinnerText;
-    private DatabaseReference userReff,SpinnerReff;
+    DatabaseReference userReff,SpinnerReff;
     String TextData = "";
 
     String CurrentUserId;
     FirebaseAuth mAuth;
-    private TextView SemesterNext;
+    TextView SemesterNext;
 
 
     ValueEventListener listener;
@@ -49,11 +50,11 @@ public class AddSemester extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-        CurrentUserId = mAuth.getCurrentUser().getUid();
+        CurrentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         userReff = FirebaseDatabase.getInstance().getReference().child("All Users").child(CurrentUserId);
         spinnerDataList = new ArrayList<>();
-        adapter = new ArrayAdapter<String>(AddSemester.this,
-                android.R.layout.simple_spinner_dropdown_item,spinnerDataList);
+        adapter = new ArrayAdapter<>(AddSemester.this,
+                android.R.layout.simple_spinner_dropdown_item, spinnerDataList);
         spinner.setAdapter(adapter);
 
         userReff.addValueEventListener(new ValueEventListener() {
@@ -61,7 +62,7 @@ public class AddSemester extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
                 if (dataSnapshot.exists()){
-                    String university = dataSnapshot.child("CreateUniversityName").getValue().toString();
+                    String university = Objects.requireNonNull(dataSnapshot.child("CreateUniversityName").getValue()).toString();
 
                     SpinnerReff = FirebaseDatabase.getInstance().getReference().child("all University").child(university);
                     retrieveData();
@@ -98,7 +99,7 @@ public class AddSemester extends AppCompatActivity {
             {
                 for (DataSnapshot item:dataSnapshot.getChildren())
                 {
-                    spinnerDataList.add(item.getValue().toString());
+                    spinnerDataList.add(Objects.requireNonNull(item.getValue()).toString());
                 }
 
                 adapter.notifyDataSetChanged();

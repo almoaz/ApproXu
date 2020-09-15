@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReportSubmitActivity"
+    android:background="@color/whiteColor">
+
+
+            <TextView
+                android:id="@+id/report_topics_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:text=""
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:padding="10dp"
+                android:background="@color/settingLinearLayoutColor"/>
+
+            <TextView
+                android:id="@+id/report_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/blackColor"
+                android:layout_below="@id/report_topics_name"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Please provide your feedback in as much detail as possible :"/>
+
+
+           <LinearLayout
+               android:id="@+id/report_box_linear_layout"
+               android:layout_width="match_parent"
+               android:layout_height="150dp"
+               android:layout_marginRight="10dp"
+               android:layout_marginLeft="10dp"
+               android:layout_marginTop="20dp"
+               android:background="@drawable/post_border"
+               android:layout_below="@id/report_detail">
+
+               <EditText
+                   android:id="@+id/report_box"
+                   android:layout_width="match_parent"
+                   android:layout_height="138dp"
+                   android:layout_margin="6dp"
+                   android:textColor="@color/blackColor"
+                   android:background="@color/whiteColor"/>
+
+           </LinearLayout>
+
+            <Button
+                android:id="@+id/report_submit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/report_box_linear_layout"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/post_btn_background"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/blackColor"
+                android:textAlignment="center"
+                android:text="Submit"/>
+
+
+
+</RelativeLayout>

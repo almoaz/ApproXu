@@ -3,6 +3,7 @@ package com.approxsoft.approxu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,7 +18,6 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,12 +27,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class ResetPasswordActivity extends AppCompatActivity {
 
     private EditText resetEmail;
     private Button resetBtn;
-    private TextView goBack;
-    private FirebaseAuth firebaseAuth;
+    TextView goBack;
+    FirebaseAuth firebaseAuth;
     private ViewGroup emailIconContainer;
     private ImageView emailIcon;
     private TextView emailIconText;
@@ -47,12 +49,14 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
 
         resetEmail = findViewById(R.id.reset_password_in_email);
-        resetBtn = findViewById(R.id.reset_password_btn);
+        resetBtn = findViewById(R.id.save_changes_password);
         goBack = findViewById(R.id.go_back);
         emailIconContainer = findViewById(R.id.forgot_password_email_icon_container);
         emailIcon = findViewById(R.id.forgot_password_email_icon);
         emailIconText = findViewById(R.id.forgot_password_email_icon_text);
         progressBar = findViewById(R.id.forgot_password_progressbar);
+        resetBtn.setEnabled(false);
+        resetBtn.setTextColor(Color.argb(50,112,112,112));
 
         resetEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -91,7 +95,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    ScaleAnimation scaleAnimation = new ScaleAnimation(1,0,1,0, emailIcon.getWidth()/2,emailIcon.getHeight()/2);
+                                    ScaleAnimation scaleAnimation = new ScaleAnimation(1,0,1,0, emailIcon.getWidth() >> 1, emailIcon.getHeight() >> 1);
                                     scaleAnimation.setDuration(100);
                                     scaleAnimation.setInterpolator(new AccelerateInterpolator());
                                     scaleAnimation.setRepeatMode(Animation.RESTART);
@@ -102,6 +106,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
                                         }
 
+                                        @SuppressLint("SetTextI18n")
                                         @Override
                                         public void onAnimationEnd(Animation animation) {
                                             emailIconText.setText("Email send successfully! Check Your Inbox");
@@ -124,7 +129,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
 
                                 }else {
-                                    String error =task.getException().getMessage();
+                                    String error = Objects.requireNonNull(task.getException()).getMessage();
 
 
                                     emailIconText.setText(error);
@@ -154,14 +159,14 @@ public class ResetPasswordActivity extends AppCompatActivity {
     }
 
     private void checkInputs() {
-        if (TextUtils.isEmpty(resetEmail.getText())){
-            resetBtn.setEnabled(false);
-            resetBtn.setTextColor(Color.argb(50,112,112,112));
-            resetEmail.setText("");
-        }else {
-
+        if (TextUtils.isEmpty(resetEmail.getText().toString().trim())){
             resetBtn.setEnabled(true);
             resetBtn.setTextColor(Color.rgb(112,112,112));
+        }else {
+            resetBtn.setEnabled(false);
+            resetBtn.setTextColor(Color.argb(50,112,112,112));
+
+
 
         }
 

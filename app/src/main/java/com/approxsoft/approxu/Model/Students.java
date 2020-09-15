@@ -1,7 +1,7 @@
 package com.approxsoft.approxu.Model;
 
 public class Students {
-    String fullName, stdId, profileImage;
+    private String fullName, stdId, profileImage;
 
     public Students(){
 

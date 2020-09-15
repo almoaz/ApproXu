@@ -13,52 +13,332 @@
 
     </include>
 
+    <TextView
+        android:id="@+id/download_url1"
+        android:layout_margin="3dp"
+        android:layout_width="34dp"
+        android:layout_below="@id/chat_bar_layout"
+        android:layout_height="34dp"
+        android:text=""
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/download_url"
+        android:layout_margin="3dp"
+        android:layout_width="34dp"
+        android:layout_below="@id/chat_bar_layout"
+        android:layout_height="34dp"
+        android:text=""
+        android:visibility="invisible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messages_list_of_users"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/chat_relative_layout"
         android:layout_below="@id/chat_bar_layout"
-        android:layout_above="@+id/relative_layout"
         android:background="@color/whiteColor" />
 
     <RelativeLayout
-        android:id="@+id/relative_layout"
+
+        android:id="@+id/chat_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="3dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/registration_input_background">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/post_btn_background">
 
-
-        <EditText
-            android:id="@+id/message_text"
-            android:layout_width="290dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="5dp"
-            android:drawableRight="@color/whiteColor"
-            android:background="@color/whiteColor"
-            android:hint="Write a comments..."
-            android:padding="10dp"
-            tools:layout_editor_absoluteX="8dp" />
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/chat_linerLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+                <ImageView
+                    android:id="@+id/add_image"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/post_icon"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/chat_linerLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="10dp">
+
+                <ImageView
+                    android:id="@+id/settings"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/file_icon" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/chat_linerLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="10dp">
+
+                <ImageView
+                    android:id="@+id/imoji"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/emoji2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/chat_linerLayout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:layout_marginStart="10dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/right_angle" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="40dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+
+               <androidx.constraintlayout.widget.ConstraintLayout
+                   android:id="@+id/image_constraint_layout"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:visibility="gone">
+
+                   <ImageView
+                       android:id="@+id/message_image_view"
+                       android:layout_width="80dp"
+                       android:layout_height="60dp"
+                       android:scaleType="centerCrop"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+                   <ImageView
+                       android:id="@+id/image_delete"
+                       android:layout_width="20dp"
+                       android:layout_height="20dp"
+                       android:padding="2dp"
+                       app:layout_constraintBottom_toBottomOf="@+id/message_image_view"
+                       app:layout_constraintEnd_toEndOf="@+id/message_image_view"
+                       app:layout_constraintHorizontal_bias="1.0"
+                       app:layout_constraintStart_toStartOf="@+id/message_image_view"
+                       app:layout_constraintTop_toTopOf="@+id/message_image_view"
+                       app:layout_constraintVertical_bias="0.0"
+                       app:srcCompat="@android:drawable/ic_delete" />
 
 
-        <ImageView
-            android:id="@+id/send_message_btn"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_centerVertical="true"
+               </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <EditText
+                    android:id="@+id/message_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Abc"
+                    android:padding="3dp"
+                    android:drawableLeft="@drawable/left_background"
+                    android:backgroundTint="@color/whiteColor"
+                    android:background="@drawable/registration_input_background"/>
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="23dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:src="@drawable/send_icon" />
+            android:layout_centerVertical="true"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout5"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/send_star_icon"
+                android:layout_margin="3dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:saveEnabled="false"
+                android:src="@drawable/full_gold_star" />
+
+
+
+            <ImageView
+                android:id="@+id/send_message_btn"
+                android:layout_margin="3dp"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:saveEnabled="false"
+                android:visibility="gone"
+                android:src="@drawable/send_icon"
+                />
+        </LinearLayout>
 
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/imoji_list_layout"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:background="@color/settingLinearLayoutColor">
+
+        <ImageView
+            android:id="@+id/imoji_list_delete"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:srcCompat="@android:drawable/ic_delete"
+            android:layout_alignParentEnd="true"/>
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp">
+
+          <ImageView
+              android:id="@+id/imoji1"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:layout_marginStart="8dp"
+              android:layout_marginTop="8dp"
+              android:src="@mipmap/emoji1"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintHorizontal_bias="0.0"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent" />
+
+          <ImageView
+              android:id="@+id/imoji2"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:layout_marginTop="8dp"
+              android:src="@mipmap/emoji2"
+              app:layout_constraintEnd_toStartOf="@+id/imoji9"
+              app:layout_constraintStart_toEndOf="@+id/imoji1"
+              app:layout_constraintTop_toTopOf="parent" />
+
+          <ImageView
+              android:id="@+id/imoji9"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:layout_marginTop="8dp"
+              android:src="@mipmap/emoji9"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent" />
+
+          <ImageView
+              android:id="@+id/imoji3"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:layout_marginTop="8dp"
+              android:src="@mipmap/emoji3"
+              app:layout_constraintEnd_toStartOf="@+id/imoji4"
+              app:layout_constraintStart_toEndOf="@+id/imoji9"
+              app:layout_constraintTop_toTopOf="parent" />
+
+          <ImageView
+              android:id="@+id/imoji4"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:layout_marginTop="8dp"
+              android:layout_marginEnd="8dp"
+              android:src="@mipmap/emoji4"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintHorizontal_bias="1.0"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent" />
+
+          <ImageView
+              android:id="@+id/imoji5"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:layout_marginStart="8dp"
+              android:layout_marginTop="16dp"
+              android:src="@mipmap/emoji5"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintHorizontal_bias="0.0"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/imoji1" />
+
+          <ImageView
+              android:id="@+id/imoji6"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:layout_marginTop="16dp"
+              android:src="@mipmap/emoji6"
+              app:layout_constraintEnd_toStartOf="@+id/imoji10"
+              app:layout_constraintStart_toEndOf="@+id/imoji5"
+              app:layout_constraintTop_toBottomOf="@+id/imoji2" />
+
+          <ImageView
+              android:id="@+id/imoji10"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:layout_marginTop="16dp"
+              android:src="@mipmap/emoji10"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/imoji2" />
+
+          <ImageView
+              android:id="@+id/imoji7"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:layout_marginTop="16dp"
+              android:src="@mipmap/emoji7"
+              app:layout_constraintEnd_toStartOf="@+id/imoji8"
+              app:layout_constraintStart_toEndOf="@+id/imoji10"
+              app:layout_constraintTop_toBottomOf="@+id/imoji2" />
+
+          <ImageView
+              android:id="@+id/imoji8"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:layout_marginTop="16dp"
+              android:layout_marginEnd="8dp"
+              android:src="@mipmap/emoji8"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintHorizontal_bias="1.0"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/imoji2" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

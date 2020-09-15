@@ -15,7 +15,7 @@
             android:id="@+id/person_tool_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/whiteColor"
+            android:background="@color/settingLinearLayoutColor"
             android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
             app:popupTheme="@style/SplashTheme">
 
@@ -32,335 +32,415 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ap_bar"
-        android:layout_alignParentStart="true">
+        android:layout_below="@+id/ap_bar">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/whiteColor">
+            android:background="@color/whiteColor"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/person_profile_cover_pic"
+            <RelativeLayout
+                android:id="@+id/person_profile_relative_layout"
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
-                android:src="@drawable/blank_cover_image"
-                android:layout_marginTop="2dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"/>
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/person_profile_image"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="130dp"
-                android:src="@drawable/profile_icon"
-                app:civ_border_width="1dp"
-                app:civ_border_color="@color/whiteColor"/>
-
-            <TextView
-                android:id="@+id/person_profile_full_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/person_profile_image"
-                android:layout_margin="10dp"
-                android:text="Full Name"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/blackColor"
-                android:textAllCaps="false"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/person_constraint_layout"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/person_profile_full_name"
-                android:background="@drawable/post_border">
-
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="137dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="30dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-
-                    <TextView
-                        android:id="@+id/person_profile_add_friend_request"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="9dp"
-                        android:layout_marginBottom="9dp"
-                        android:text="Add Friend"
-                        android:layout_marginLeft="30dp"
-                        android:textAllCaps="false"
-                        android:textColor="@color/neviBlue"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/borderColor"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-                    app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="137dp"
-                    android:layout_height="40dp"
-                    android:layout_marginEnd="30dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-
-                    <TextView
-                        android:id="@+id/person_profile_cancel_friend_request"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="9dp"
-                        android:layout_marginBottom="9dp"
-                        android:text="Cancel Friends"
-                        android:textAllCaps="false"
-                        android:textColor="@color/redColor"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/person_profile_message_friend"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
-                        android:layout_marginTop="9dp"
-                        android:layout_marginBottom="9dp"
-                        android:text="Message"
-                        android:textAllCaps="false"
-                        android:textColor="@color/neviBlue"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-            <LinearLayout
-                android:id="@+id/liner_lay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/person_constraint_layout"
-                android:layout_marginTop="40dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:orientation="vertical">
-
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/person_profile_cover_pic"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="190dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/blank_cover_image"
+                    android:layout_marginTop="2dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"/>
 
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/university_icon"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginRight="5dp"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/person_profile_image"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="130dp"
+                    android:src="@drawable/profile_icon"
+                    app:civ_border_width="1dp"
+                    app:civ_border_color="@color/whiteColor"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Running study at "
-                        android:textSize="15sp"
-                        android:textColor="@color/blackColor"
-                        android:layout_marginLeft="5dp"/>
-
-                    <TextView
-                        android:id="@+id/person_profile_university_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="None"
-                        android:textSize="15sp"
-                        android:textColor="@color/blackColor"
-                        android:layout_marginLeft="5dp"/>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp">
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/university_icon"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginRight="5dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Department of "
-                        android:textSize="15sp"
-                        android:textColor="@color/blackColor"
-                        android:layout_marginLeft="5dp"/>
-
-                    <TextView
-                        android:id="@+id/person_profile_department_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="None"
-                        android:textSize="15sp"
-                        android:textColor="@color/blackColor"
-                        android:layout_marginLeft="5dp"/>
-
-
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/person_profile_full_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/person_profile_image"
+                    android:layout_margin="10dp"
+                    android:text="Full Name"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blackColor"
+                    android:textAllCaps="false"/>
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginTop="3dp"
-                        android:src="@drawable/profile_icon" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/person_constraint_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/person_profile_full_name"
+                    android:background="@drawable/post_border">
 
-
-                    <TextView
-                        android:id="@+id/person_profile_semester"
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="None Semester "
-                        android:textColor="@color/blackColor"
-                        android:textSize="15sp" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/divider2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/person_profile_add_friend_request"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:text="Add Friend"
+                            android:textAllCaps="false"
+                            android:textColor="@color/neviBlue"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/borderColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/divider2"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <TextView
+                            android:id="@+id/person_profile_following_request"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Follow"
+                            android:textAllCaps="false"
+                            android:textColor="@color/neviBlue"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/person_profile_cancel_friend_request"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Cancel Request"
+                            android:visibility="gone"
+                            android:textAllCaps="false"
+                            android:textColor="@color/redColor"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/person_profile_message_friend"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Message"
+                            android:visibility="gone"
+                            android:textAllCaps="false"
+                            android:textColor="@color/neviBlue"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/add_friend_lock"
+                        android:layout_width="17dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+                        app:srcCompat="@drawable/black_lock" />
+
+                    <ImageView
+                        android:id="@+id/follow_lock"
+                        android:layout_width="17dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/divider2"
+                        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+                        app:srcCompat="@drawable/black_lock" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 
                 <LinearLayout
+                    android:id="@+id/liner_lay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp">
+                    android:layout_below="@+id/person_constraint_layout"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/date_of_birth"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginRight="5dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                    <TextView
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/university_icon"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Running study at "
+                            android:textSize="15sp"
+                            android:textColor="@color/blackColor"
+                            android:layout_marginLeft="5dp"/>
+
+                        <TextView
+                            android:id="@+id/person_profile_university_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="None"
+                            android:textSize="15sp"
+                            android:textColor="@color/blackColor"
+                            android:layout_marginLeft="5dp"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/university_icon"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Department of "
+                            android:textSize="15sp"
+                            android:textColor="@color/blackColor"
+                            android:layout_marginLeft="5dp"/>
+
+                        <TextView
+                            android:id="@+id/person_profile_department_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="None"
+                            android:textSize="15sp"
+                            android:textColor="@color/blackColor"
+                            android:layout_marginLeft="5dp"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Date of birth : "
-                        android:textSize="15sp"
-                        android:textColor="@color/blackColor"
-                        android:layout_marginLeft="5dp"/>
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/person_profile_date_of_birth"
-                        android:layout_width="wrap_content"
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginTop="3dp"
+                            android:src="@drawable/profile_icon" />
+
+
+                        <TextView
+                            android:id="@+id/person_profile_semester"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="None Semester "
+                            android:textColor="@color/blackColor"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="None"
-                        android:textSize="15sp"
-                        android:textColor="@color/blackColor"
-                        android:layout_marginLeft="5dp"/>
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/date_of_birth"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date of birth : "
+                            android:textSize="15sp"
+                            android:textColor="@color/blackColor"
+                            android:layout_marginLeft="5dp"/>
+
+                        <TextView
+                            android:id="@+id/person_profile_date_of_birth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="None"
+                            android:textSize="15sp"
+                            android:textColor="@color/blackColor"
+                            android:layout_marginLeft="5dp"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/location_icon"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="5dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Current city   :"
+                            android:textSize="15sp"
+                            android:textColor="@color/blackColor"
+                            android:layout_marginLeft="5dp"/>
+
+                        <TextView
+                            android:id="@+id/person_profile_current_city_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" None"
+                            android:textSize="15sp"
+                            android:textColor="@color/blackColor"
+                            android:layout_marginLeft="5dp"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/more_informaion_icon"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="10dp"/>
+
+                        <TextView
+                            android:id="@+id/person_profile_more_information"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="More Information"
+                            android:textSize="15sp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/blackColor"
+                            android:layout_marginLeft="5dp"/>
+
+
+                    </LinearLayout>
+
 
 
                 </LinearLayout>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/lock_profile_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp">
+                    android:visibility="gone"
+                    android:layout_below="@+id/liner_lay">
 
                     <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/location_icon"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginRight="5dp"/>
+                        android:id="@+id/imageView4"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/black_lock"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView6"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Current city   :"
-                        android:textSize="15sp"
-                        android:textColor="@color/blackColor"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Lock this profile"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/person_profile_current_city_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" None"
-                        android:textSize="15sp"
-                        android:textColor="@color/blackColor"
-                        android:layout_marginLeft="5dp"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp">
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/more_informaion_icon"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginRight="5dp"/>
-
-                    <TextView
-                        android:id="@+id/person_profile_more_information"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="More Information"
-                        android:textSize="15sp"
-                        android:textColor="@color/blackColor"
-                        android:layout_marginLeft="5dp"/>
-
-
-                </LinearLayout>
-
-
-
-            </LinearLayout>
+            </RelativeLayout>
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -368,13 +448,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
-                android:layout_below="@+id/liner_lay"
                 android:background="@color/whiteColor"/>
 
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main_layout"
+    tools:context=".SinglePageApplicationActivity">
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="invisible"/>
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:visibility="invisible"/>
+
+
+    <RelativeLayout
+        android:id="@+id/home_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/main_page_toolbar"
+            layout="@layout/home_ap_bar">
+
+        </include>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_Layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/main_page_toolbar">
+
+            <FrameLayout
+                android:id="@+id/main_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/all_user_post_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/home_constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="98dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp">
+
+
+            <TextView
+                android:id="@+id/home_approx_text"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/registration_input_background"
+                android:onClick="homeBtn"
+                android:paddingBottom="3dp"
+                android:textAlignment="center"
+                android:textColor="@color/blackColor"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.18" />
+
+            <ImageView
+                android:id="@+id/home_home_icon"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:onClick="homeBtn"
+                android:padding="10dp"
+                android:src="@drawable/ic_home"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_approx_text" />
+
+            <ImageView
+                android:id="@+id/home_add_post_icon"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:onClick="homeBtn"
+                android:padding="10dp"
+                android:src="@drawable/post_icons"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_approx_text" />
+
+            <ImageView
+                android:id="@+id/home_message_icon"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:padding="9dp"
+                android:onClick="homeBtn"
+                android:src="@drawable/message_bubble"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_approx_text" />
+
+            <ImageView
+                android:id="@+id/home_friends_icon"
+                android:layout_width="50dp"
+                android:layout_height="45dp"
+                android:onClick="homeBtn"
+                android:padding="9dp"
+                android:src="@drawable/find_friend"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.75"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_approx_text" />
+
+            <ImageView
+                android:id="@+id/notification_Btn"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="6dp"
+                android:onClick="homeBtn"
+                android:padding="8dp"
+                android:src="@drawable/full_black_notification"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_approx_text" />
+
+            <TextView
+                android:id="@+id/notification_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/notification_Btn"
+                android:layout_alignEnd="@+id/notification_Btn"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/registration_input_background"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@color/redColor"
+                android:textSize="15sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/notification_Btn"
+                app:layout_constraintEnd_toEndOf="@+id/notification_Btn"
+                app:layout_constraintStart_toStartOf="@+id/notification_Btn"
+                app:layout_constraintTop_toTopOf="@+id/notification_Btn"
+                tools:text="5" />
+
+            <TextView
+                android:id="@+id/message_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/registration_input_background"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textAlignment="center"
+                android:textColor="@color/redColor"
+                android:textSize="15sp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/home_message_icon"
+                app:layout_constraintEnd_toEndOf="@+id/home_message_icon"
+                app:layout_constraintStart_toStartOf="@+id/home_message_icon"
+                app:layout_constraintTop_toTopOf="@+id/home_message_icon"
+                app:layout_constraintVertical_bias="0.3"
+                tools:text="9" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="55dp"
+                app:layout_constraintBottom_toBottomOf="@+id/home_approx_text"
+                app:layout_constraintEnd_toEndOf="@+id/home_approx_text"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/home_approx_text"
+                app:layout_constraintTop_toTopOf="@+id/home_approx_text"
+                app:layout_constraintVertical_bias="0.51"
+                app:srcCompat="@drawable/icon_search" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="2dp"
+                android:text="Search ApproXu"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/home_approx_text"
+                app:layout_constraintEnd_toEndOf="@+id/home_approx_text"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="@+id/home_approx_text"
+                app:layout_constraintTop_toTopOf="@+id/home_approx_text" />
+
+            <TextView
+                android:id="@+id/home_hiden_btn"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/home_approx_text"
+                app:layout_constraintEnd_toEndOf="@+id/home_approx_text"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/home_approx_text"
+                app:layout_constraintTop_toTopOf="@+id/home_approx_text" />
+
+            <TextView
+                android:id="@+id/version_update_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/whiteColor"
+                android:text="Availabel new version update"
+                android:textColor="@color/redColor"
+                android:textSize="14sp"
+                android:paddingBottom="3dp"
+                app:layout_constraintEnd_toEndOf="@+id/home_approx_text"
+                app:layout_constraintStart_toStartOf="@+id/home_approx_text"
+                app:layout_constraintTop_toTopOf="@+id/home_approx_text"
+                app:layout_constraintBottom_toBottomOf="@+id/home_approx_text"
+                android:visibility="gone"
+                tools:layout_editor_absoluteY="98dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/home_profile_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/whiteColor"
+            android:src="@drawable/profile_icon"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="2dp"/>
+
+
+    </RelativeLayout>
+
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/main_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/settingLinearLayoutColor"
+
+        app:menu="@menu/navigation_menu" />
+
+    <RelativeLayout
+        android:id="@+id/add_post_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/whiteColor">
+
+        <include android:id="@+id/add_post_toolbar"
+            layout="@layout/navigation_ap_bar">
+
+        </include>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/add_post_toolbar"
+            android:layout_alignParentStart="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/new_post_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:hint="Write Somethings...."
+                    android:textColor="@color/blackColor"
+                    android:paddingTop="5dp"
+                    android:drawableTop="@drawable/left_background"
+                    android:drawableBottom="@drawable/left_background"
+                    android:paddingBottom="5dp"
+                    android:layout_margin="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingEnd="10dp"
+                    android:background="@drawable/inputs_background"/>
+
+
+                <Button
+                    android:id="@+id/upload_status"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/new_post_text"
+                    android:layout_margin="30dp"
+                    android:enabled="false"
+                    android:visibility="invisible"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/post_btn_background"
+                    android:text="Upload Status"
+                    android:textColor="@color/neviBlue"/>
+
+            </RelativeLayout>
+
+
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/notification_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whiteColor"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/notification_ap_bar"
+            layout="@layout/navigation_ap_bar">
+
+        </include>
+
+        <RelativeLayout
+            android:id="@+id/user_notification_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_below="@id/notification_ap_bar">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/notification_seen_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentStart="true"/>
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/page_notification_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_below="@id/notification_ap_bar">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/page_notification_seen_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentStart="true"/>
+
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

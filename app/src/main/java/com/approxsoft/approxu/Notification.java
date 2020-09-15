@@ -2,19 +2,20 @@ package com.approxsoft.approxu;
 
 public class Notification {
 
-    public String text, fullName, profileImage, date, time;
+    public String text, fullName, profileImage, date, time, type;
 
     public Notification()
     {
 
     }
 
-    public Notification(String text, String fullName, String profileImage, String date, String time) {
+    public Notification(String text, String fullName, String profileImage, String date, String time, String type) {
         this.text = text;
         this.fullName = fullName;
         this.profileImage = profileImage;
         this.date = date;
         this.time = time;
+        this.type = type;
     }
 
     public String getText() {
@@ -55,5 +56,13 @@ public class Notification {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

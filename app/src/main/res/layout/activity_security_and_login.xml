@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    tools:context=".SecurityAndLoginActivity">
+
+    <include
+        android:id="@+id/security_and_login_app_bar"
+        layout="@layout/navigation_ap_bar">
+
+    </include>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/security_and_login_app_bar"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+
+                <TextView
+                    android:id="@+id/text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change ApproXu Password"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blackColor"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/change_password_constraint_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_view"
+                    android:layout_marginTop="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true">
+
+                    <EditText
+                        android:id="@+id/current_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/post_border"
+                        android:drawableLeft="@drawable/left_background"
+                        android:drawableRight="@drawable/left_background"
+                        android:hint="Current Password"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/new_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/post_border"
+                        android:drawableLeft="@drawable/left_background"
+                        android:drawableRight="@drawable/left_background"
+                        android:hint="New password"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/current_password" />
+
+                    <EditText
+                        android:id="@+id/re_type_new_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/post_border"
+                        android:drawableLeft="@drawable/left_background"
+                        android:drawableRight="@drawable/left_background"
+                        android:hint="Re-type new password"
+                        android:padding="8dp"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/new_password" />
+
+                    <TextView
+                        android:id="@+id/sub_current_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@color/whiteColor"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:text="Current Password"
+                        android:textSize="13sp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@+id/current_password"
+                        app:layout_constraintEnd_toEndOf="@+id/current_password"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/current_password"
+                        app:layout_constraintTop_toTopOf="@+id/current_password" />
+
+
+                    <TextView
+                        android:id="@+id/sub_new_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@color/whiteColor"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:text="New Password"
+                        android:textSize="13sp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@+id/new_password"
+                        app:layout_constraintEnd_toEndOf="@+id/new_password"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/new_password"
+                        app:layout_constraintTop_toTopOf="@+id/new_password" />
+
+                    <TextView
+                        android:id="@+id/sub_new_retype_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@color/whiteColor"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:text="Re-type Password"
+                        android:textSize="13sp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@+id/re_type_new_password"
+                        app:layout_constraintEnd_toEndOf="@+id/re_type_new_password"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/re_type_new_password"
+                        app:layout_constraintTop_toTopOf="@+id/re_type_new_password" />
+
+                    <Button
+                        android:id="@+id/save_changes_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="32dp"
+                        android:background="@drawable/post_btn_background"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="Save Changes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/re_type_new_password" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/change_password_constraint_layout"
+                    android:layout_marginTop="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true">
+
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Profile lock"
+                        android:textAlignment="center"
+                        android:textColor="@color/blackColor"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="If lock your profile when unknown person can't seen your profile status and some options"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+                    <TextView
+                        android:id="@+id/lock_profile_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/post_btn_background"
+                        android:text="Click and lock your profile"
+                        android:visibility="gone"
+                        android:textColor="@color/blackColor"
+                        android:textSize="17sp"
+                        android:padding="6dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                    <TextView
+                        android:id="@+id/unlock_profile_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/post_btn_background"
+                        android:text="Click and unlock your profile"
+                        android:visibility="gone"
+                        android:textColor="@color/blackColor"
+                        android:textSize="17sp"
+                        android:padding="6dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+        </ScrollView>
+
+</RelativeLayout>

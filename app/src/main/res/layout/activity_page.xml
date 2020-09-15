@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PageActivity"
+    android:background="@color/whiteColor">
+
+    <include
+        android:id="@+id/page_app_bar"
+        layout="@layout/navigation_ap_bar">
+
+    </include>
+
+   <HorizontalScrollView
+       android:id="@+id/horizontal_scroll"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/page_app_bar"
+       android:scrollbars="none">
+
+       <RelativeLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@drawable/post_border">
+
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_alignParentTop="true"
+               android:layout_alignParentEnd="true"
+               android:layout_alignParentStart="true">
+
+               <TextView
+                   android:id="@+id/create_page_btn"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="8dp"
+                   android:layout_marginTop="8dp"
+                   android:layout_marginBottom="8dp"
+                   android:background="@drawable/button_circle_layout"
+                   android:paddingTop="5dp"
+                   android:drawableLeft="@drawable/add_cover_image_icon"
+                   android:paddingBottom="5dp"
+                   android:paddingLeft="8dp"
+                   android:paddingRight="6dp"
+                   android:text="Create Page"
+                   android:textColor="@color/blackColor"
+                   android:textSize="15sp"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintHorizontal_bias="0.0"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+               <TextView
+                   android:id="@+id/page_invitation_btn"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="8dp"
+                   android:layout_marginTop="8dp"
+                   android:layout_marginEnd="8dp"
+                   android:layout_marginBottom="8dp"
+                   android:background="@drawable/button_circle_layout"
+                   android:paddingTop="5dp"
+                   android:drawableLeft="@drawable/gold_star"
+                   android:paddingBottom="5dp"
+                   android:paddingLeft="8dp"
+                   android:paddingRight="6dp"
+                   android:text="Invitation"
+                   android:textColor="@color/blackColor"
+                   android:textSize="15sp"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintHorizontal_bias="0.0"
+                   app:layout_constraintStart_toEndOf="@+id/create_page_btn"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+               <TextView
+                   android:id="@+id/page_new_btn"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="8dp"
+                   android:layout_marginTop="8dp"
+                   android:layout_marginEnd="8dp"
+                   android:layout_marginBottom="8dp"
+                   android:background="@drawable/button_circle_layout"
+                   android:paddingTop="5dp"
+                   android:paddingBottom="5dp"
+                   android:drawableLeft="@drawable/page_icon"
+                   android:paddingLeft="8dp"
+                   android:paddingRight="6dp"
+                   android:text="New Page"
+                   android:textColor="@color/blackColor"
+                   android:textSize="15sp"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintHorizontal_bias="0.0"
+                   app:layout_constraintStart_toEndOf="@+id/page_invitation_btn"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+
+               <TextView
+                   android:id="@+id/page_star_btn"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="8dp"
+                   android:layout_marginTop="8dp"
+                   android:layout_marginEnd="8dp"
+                   android:layout_marginBottom="8dp"
+                   android:background="@drawable/button_circle_layout"
+                   android:paddingTop="5dp"
+                   android:paddingBottom="5dp"
+                   android:drawableLeft="@drawable/full_gold_star"
+                   android:paddingLeft="8dp"
+                   android:paddingRight="6dp"
+                   android:text="Page Star"
+                   android:textColor="@color/blackColor"
+                   android:textSize="15sp"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintHorizontal_bias="0.0"
+                   app:layout_constraintStart_toEndOf="@+id/page_new_btn"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+       </RelativeLayout>
+
+   </HorizontalScrollView>
+    <TextView
+        android:id="@+id/page_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Page"
+        android:layout_below="@+id/horizontal_scroll"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/all_page_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/page_name_text"
+        android:layout_marginTop="10dp"/>
+
+</RelativeLayout>

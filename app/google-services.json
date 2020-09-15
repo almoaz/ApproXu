@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "771090460877-7684a7vdafeb7ba43bu07k2fb4ibrm7g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.approxsoft.approxu",
+            "certificate_hash": "02f7368b2a104655bdccbcf2fa85aa0d2a33e670"
+          }
+        },
+        {
           "client_id": "771090460877-gqcffrln64pstci6ff4jsa7mntsql96i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -10,7 +10,7 @@
     <color name="neviBlue">#24375B</color>
     <color name="normalBlue">#4274D8</color>
     <color name="redColor">#D23838</color>
-    <color name="blackColor">#131212</color>
+    <color name="blackColor">#232323</color>
     <color name="normalBlack">#615959</color>
     <color name="settingsBackground">#9EA0A0</color>
     <color name="settingLinearLayoutColor">#F1F2F5</color>
@@ -20,4 +20,5 @@
     <color name="postBtnColor">#EBE8E8</color>
     <color name="blueColor">#1592E6</color>
     <color name="halfBlueColor">#97D0F6</color>
+    <color name="deviderColor">#D5D6DA</color>
 </resources>

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -27,19 +28,20 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UpdateStudentSdActivity extends AppCompatActivity {
 
-    private Toolbar mToolbar;
+    Toolbar mToolbar;
     private EditText UpdateSdUniversity,UpdateSdDepartments, UpdateSdSemester, UpdateSdGroup,UpdateSdId, UpdateSdTotalPayment, UpdateSdPayablePayment, UpdateSdSemesterFee, UpdateSdPayment, UpdateSdDue;
     private CircleImageView SdUserProfileImage;
     private TextView sdUserFullName, sdEmail, sdPhoneNo , userName;
-    private FirebaseAuth mAuth;
-    private DatabaseReference studentReff,userReff,StudentReff;
-    private String reciverUseId, currentUserId;
-    private Button UpdateSdBtn;
+    FirebaseAuth mAuth;
+    DatabaseReference studentReff,userReff,StudentReff;
+    String reciverUseId, currentUserId;
+    Button UpdateSdBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +49,13 @@ public class UpdateStudentSdActivity extends AppCompatActivity {
         setContentView(R.layout.activity_update_student_sd);
 
         mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.getCurrentUser().getUid();
-        reciverUseId = getIntent().getExtras().get("visit_user_id").toString();
+        currentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        reciverUseId = Objects.requireNonNull(Objects.requireNonNull(getIntent().getExtras()).get("visit_user_id")).toString();
         userReff = FirebaseDatabase.getInstance().getReference().child("All Users").child(reciverUseId);
 
         mToolbar = findViewById(R.id.student_update_profile_tool_bar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
 
@@ -80,7 +82,7 @@ public class UpdateStudentSdActivity extends AppCompatActivity {
             {
                 if (dataSnapshot.exists())
                 {
-                    String university = dataSnapshot.child("university").getValue().toString();
+                    String university = Objects.requireNonNull(dataSnapshot.child("university").getValue()).toString();
 
                     studentReff = FirebaseDatabase.getInstance().getReference().child("All University").child(university).child("All Students");
 
@@ -91,20 +93,20 @@ public class UpdateStudentSdActivity extends AppCompatActivity {
                         {
                             if (dataSnapshot.exists())
                             {
-                                String name = dataSnapshot.child("fullName").getValue().toString();
-                                String email = dataSnapshot.child("Email").getValue().toString();
-                                String profileImage = dataSnapshot.child("profileImage").getValue().toString();
-                                String University = dataSnapshot.child("university").getValue().toString();
-                                String semester = dataSnapshot.child("Semester").getValue().toString();
-                                String group = dataSnapshot.child("Group").getValue().toString();
-                                String id = dataSnapshot.child("stdId").getValue().toString();
-                                String Departments = dataSnapshot.child("Departments").getValue().toString();
-                                String phone = dataSnapshot.child("Phone").getValue().toString();
-                                String totalPayments = dataSnapshot.child("TotalPayments").getValue().toString();
-                                String payablePayments = dataSnapshot.child("PayablePayments").getValue().toString();
-                                String semesterFee = dataSnapshot.child("SemesterFee").getValue().toString();
-                                String payment = dataSnapshot.child("SemesterPayment").getValue().toString();
-                                String due = dataSnapshot.child("SemesterDue").getValue().toString();
+                                String name = Objects.requireNonNull(dataSnapshot.child("fullName").getValue()).toString();
+                                String email = Objects.requireNonNull(dataSnapshot.child("Email").getValue()).toString();
+                                String profileImage = Objects.requireNonNull(dataSnapshot.child("profileImage").getValue()).toString();
+                                String University = Objects.requireNonNull(dataSnapshot.child("university").getValue()).toString();
+                                String semester = Objects.requireNonNull(dataSnapshot.child("Semester").getValue()).toString();
+                                String group = Objects.requireNonNull(dataSnapshot.child("Group").getValue()).toString();
+                                String id = Objects.requireNonNull(dataSnapshot.child("stdId").getValue()).toString();
+                                String Departments = Objects.requireNonNull(dataSnapshot.child("Departments").getValue()).toString();
+                                String phone = Objects.requireNonNull(dataSnapshot.child("Phone").getValue()).toString();
+                                String totalPayments = Objects.requireNonNull(dataSnapshot.child("TotalPayments").getValue()).toString();
+                                String payablePayments = Objects.requireNonNull(dataSnapshot.child("PayablePayments").getValue()).toString();
+                                String semesterFee = Objects.requireNonNull(dataSnapshot.child("SemesterFee").getValue()).toString();
+                                String payment = Objects.requireNonNull(dataSnapshot.child("SemesterPayment").getValue()).toString();
+                                String due = Objects.requireNonNull(dataSnapshot.child("SemesterDue").getValue()).toString();
 
                                 sdUserFullName.setText(name);
                                 userName.setText(name);
@@ -121,7 +123,7 @@ public class UpdateStudentSdActivity extends AppCompatActivity {
                                 UpdateSdPayment.setText(payment);
                                 UpdateSdDue.setText(due);
 
-                                Picasso.get().load(profileImage).into(SdUserProfileImage);
+                                Picasso.get().load(profileImage).placeholder(R.drawable.profile_icon).into(SdUserProfileImage);
 
 
 
@@ -205,22 +207,22 @@ public class UpdateStudentSdActivity extends AppCompatActivity {
         }
     }
 
-    private void UpdateAccountInfo(final String university, final String departments, final String group, final String semester, String stdid, final String totalFee, final String payablePayment, final String semesterFee, final String payments, final String paymentDue) {
+    private void UpdateAccountInfo(final String university, final String departments, final String group, final String semester, final String stdid, final String totalFee, final String payablePayment, final String semesterFee, final String payments, final String paymentDue) {
 
      userReff.addValueEventListener(new ValueEventListener() {
          @Override
          public void onDataChange(@NonNull DataSnapshot dataSnapshot)
          {
              if (dataSnapshot.exists()){
-                 String University = dataSnapshot.child("university").getValue().toString();
+                 String University = Objects.requireNonNull(dataSnapshot.child("university").getValue()).toString();
 
                  Calendar calForDate = Calendar.getInstance();
-                 SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+                 @SuppressLint("SimpleDateFormat") SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
                  final String saveCurrentDate = currentDate.format(calForDate.getTime());
 
                  Calendar calForTime = Calendar.getInstance();
-                 SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
-                 final String saveCurrentTime = currentTime.format(calForDate.getTime());
+                 @SuppressLint("SimpleDateFormat") SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+                 final String saveCurrentTime = currentTime.format(calForTime.getTime());
 
 
                  HashMap rdsMap = new HashMap();
@@ -231,6 +233,7 @@ public class UpdateStudentSdActivity extends AppCompatActivity {
                  rdsMap.put("PayablePayments",payablePayment);
                  rdsMap.put("Semester", semester);
                  rdsMap.put("SemesterFee", semesterFee);
+                 rdsMap.put("stdId",stdid);
                  rdsMap.put("SemesterPayment", payments);
                  rdsMap.put("SemesterDue", paymentDue);
                  rdsMap.put("date",saveCurrentDate);

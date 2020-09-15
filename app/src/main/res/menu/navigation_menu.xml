@@ -3,31 +3,31 @@
     <item
         android:id="@+id/menu_profile"
         android:title="@string/menu_profile"
-        android:icon="@drawable/profile_icon" />
+        android:icon="@drawable/profile_icons" />
 
     <item
         android:id="@+id/menu_new_post"
         android:title="@string/menu_add_new_post"
-        android:icon="@drawable/post_icon"/>
+        android:icon="@drawable/post_icons"/>
 
     <item
         android:id="@+id/menu_message"
         android:title="@string/menu_message"
-        android:icon="@drawable/chat_icon" />
+        android:icon="@drawable/message_bubble" />
     <item
         android:id="@+id/menu_notification"
         android:title="@string/notification"
-        android:icon="@drawable/notification_icon" />
+        android:icon="@drawable/full_black_notification" />
 
     <item
         android:id="@+id/menu_friends"
         android:title="@string/menu_friends"
-        android:icon="@drawable/find_friends"/>
+        android:icon="@drawable/find_friend"/>
 
     <item
         android:id="@+id/menu_find_friends"
         android:title="@string/menu_find_friends"
-        android:icon="@drawable/find_friend" />
+        android:icon="@drawable/find_friends" />
 
 
     <item
@@ -36,9 +36,24 @@
         android:icon="@drawable/university_icon"/>
 
     <item
+        android:id="@+id/menu_Page"
+        android:title="Page"
+        android:icon="@drawable/page_icon"/>
+
+    <item
         android:id="@+id/menu_settings"
         android:title="@string/menu_settings"
         android:icon="@drawable/settings_icon"/>
+
+    <item
+        android:id="@+id/menu_version_update"
+        android:title="Version Update"
+        android:icon="@drawable/version_icon"/>
+
+    <item
+        android:id="@+id/menu_report_problem"
+        android:title="Report a Problem"
+        android:icon="@drawable/report_problem_icon"/>
 
     <item
         android:id="@+id/menu_sign_out"

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
-
-import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,21 +26,18 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FriendsActivity extends AppCompatActivity {
 
-    private Toolbar mToolbar;
+    Toolbar mToolbar;
 
     private RecyclerView myFriendList;
-    private DatabaseReference FriendReff, UserReff;
-    private FirebaseAuth mAuth;
-    private String online_user_id;
+    DatabaseReference FriendReff, UserReff;
+    FirebaseAuth mAuth;
+    String online_user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +45,13 @@ public class FriendsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friends);
 
         mAuth = FirebaseAuth.getInstance();
-        online_user_id = mAuth.getCurrentUser().getUid();
+        online_user_id = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         FriendReff = FirebaseDatabase.getInstance().getReference().child("All Users").child(online_user_id).child("Friends").child(online_user_id);
         UserReff = FirebaseDatabase.getInstance().getReference().child("All Users");
 
         mToolbar = findViewById(R.id.friend_list_ap_bar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Friends");
 
 
@@ -70,33 +65,6 @@ public class FriendsActivity extends AppCompatActivity {
         DisplayAllFriends();
     }
 
-    private void updateUserStatus(String state)
-    {
-        String SaveCurrentDate, SaveCurrentTime;
-
-        Calendar callForDate = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("MM dd, yyy");
-        SaveCurrentDate =currentDate.format(callForDate.getTime());
-
-        Calendar callForTime = Calendar.getInstance();
-        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
-        SaveCurrentTime =currentTime.format(callForTime.getTime());
-
-
-        Map CurrentStatemap = new HashMap();
-        CurrentStatemap.put("time", SaveCurrentTime);
-        CurrentStatemap.put("date", SaveCurrentDate);
-        CurrentStatemap.put("type", state);
-
-        UserReff.child(online_user_id).child("userState")
-                .updateChildren(CurrentStatemap);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        updateUserStatus("online");
-    }
 
 
     private void DisplayAllFriends() {
@@ -112,21 +80,21 @@ public class FriendsActivity extends AppCompatActivity {
                 friendsViewHolder.setDate(friends.getDate());
                 final String usersIDs = getRef(position).getKey();
 
-                UserReff.child(usersIDs).addValueEventListener(new ValueEventListener() {
+                UserReff.child(Objects.requireNonNull(usersIDs)).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            final String userName = dataSnapshot.child("fullName").getValue().toString();
-                            final String profileimage = dataSnapshot.child("profileImage").getValue().toString();
+                            final String userName = Objects.requireNonNull(dataSnapshot.child("fullName").getValue()).toString();
+                            final String profileimage = Objects.requireNonNull(dataSnapshot.child("profileImage").getValue()).toString();
 
                             friendsViewHolder.setFullName(userName);
-                            friendsViewHolder.setProfileImage(getApplicationContext(), profileimage);
+                            friendsViewHolder.setProfileImage(profileimage);
 
                             friendsViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v)
                                 {
-                                    CharSequence options[] = new CharSequence[]
+                                    CharSequence[] options = new CharSequence[]
                                             {
                                                     userName + "'s Profile",
                                                     "Send Message"
@@ -148,7 +116,9 @@ public class FriendsActivity extends AppCompatActivity {
                                             {
                                                 Intent chatIntent = new Intent(FriendsActivity.this,ChatActivity.class);
                                                 chatIntent.putExtra("visit_user_id",usersIDs);
+                                                chatIntent.putExtra("userId",online_user_id);
                                                 chatIntent.putExtra("userName",userName);
+                                                chatIntent.putExtra("type","user");
                                                 startActivity(chatIntent);
                                             }
                                         }
@@ -175,28 +145,29 @@ public class FriendsActivity extends AppCompatActivity {
         adapter.startListening();
         myFriendList.setAdapter(adapter);
     }
-    public static class FriendsViewHolder extends RecyclerView.ViewHolder {
+    public class FriendsViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
 
-        public FriendsViewHolder(View itemView) {
+        FriendsViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
         }
 
-        public void setProfileImage(Context applicationContext, String profileimage) {
-            CircleImageView image = (CircleImageView) mView.findViewById(R.id.friend_profile_image);
-            Picasso.get().load(profileimage).placeholder(R.drawable.profile_holder).into(image);
+        public void setProfileImage(String profileimage) {
+            CircleImageView image = mView.findViewById(R.id.message_friends_profile_image);
+            Picasso.get().load(profileimage).placeholder(R.drawable.profile_icon).into(image);
         }
 
         public void setFullName(String fullName){
-            TextView myName = (TextView) mView.findViewById(R.id.friend_profile_full_name);
+            TextView myName = mView.findViewById(R.id.friend_profile_full_name);
             myName.setText(fullName);
         }
 
+        @SuppressLint("SetTextI18n")
         public void setDate(String date){
-            TextView friendsDate = (TextView) mView.findViewById(R.id.friend_request_accept_date);
-            friendsDate.setText("Friends scince: " + date);
+            TextView friendsDate = mView.findViewById(R.id.friend_request_accept_date);
+            friendsDate.setText("Friends science: " + date);
         }
     }
 }

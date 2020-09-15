@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#ffffff"
+    android:layout_height="match_parent"
+    tools:context=".ClassGroupChatActivity">
+
+    <include
+        android:id="@+id/class_group_chat_bar"
+        layout="@layout/navigation_ap_bar">
+
+    </include>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/class_group_messages_list_of_users"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/class_group_chat_bar"
+        android:layout_above="@+id/relative_layout"
+        android:background="@color/whiteColor" />
+
+    <RelativeLayout
+        android:id="@+id/relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="3dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/registration_input_background">
+
+
+        <EditText
+            android:id="@+id/class_group_message_text"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="5dp"
+            android:drawableRight="@color/whiteColor"
+            android:background="@color/whiteColor"
+            android:hint="Write a comments..."
+            android:padding="10dp"
+            tools:layout_editor_absoluteX="8dp" />
+
+
+        <ImageView
+            android:id="@+id/class_group_send_message_btn"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/send_icon" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

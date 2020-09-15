@@ -1,112 +1,360 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whiteColor"
     tools:context=".SignInActivity">
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/logo"
+
+        <RelativeLayout
+            android:id="@+id/sign_in_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/logo"
-            android:layout_margin="40dp"
-            android:layout_alignParentTop="true"/>
+            android:layout_height="match_parent">
 
 
-        <EditText
-            android:id="@+id/sign_in_email"
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="50dp"
+                android:layout_marginBottom="60dp"
+                android:src="@drawable/approxu_logo" />
+
+            <EditText
+                android:id="@+id/sign_in_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_below="@+id/logo"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:hint="Email Id"
+                android:drawableLeft="@drawable/left_background"
+                android:drawableRight="@drawable/left_background"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp"
+                android:textColor="@color/blackColor"
+                android:background="@drawable/post_border"/>
+
+            <EditText
+                android:id="@+id/sign_in_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:padding="10dp"
+                android:hint="Password"
+                android:drawableLeft="@drawable/left_background"
+                android:drawableRight="@drawable/left_background"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/sign_in_email"
+                android:inputType="textPassword"
+                android:textSize="16sp"
+                android:textColor="@color/blackColor"
+                android:background="@drawable/post_border"/>
+
+            <TextView
+                android:id="@+id/forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="forgot password?"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="18dp"
+                android:layout_below="@id/sign_in_password"
+                android:textColor="@color/redColor"
+                />
+
+            <ProgressBar
+                android:id="@+id/sign_in_progressBar"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/forgot_password"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:theme="@style/ProgressBar"
+                android:visibility="invisible"/>
+
+            <Button
+                android:id="@+id/sign_in_btn"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/post_btn_background"
+                android:text="Sign In"
+                android:enabled="false"
+                android:layout_below="@id/sign_in_progressBar"
+                android:textColor="#50615959"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textAllCaps="false"/>
+
+            <TextView
+                android:id="@+id/create_a_new_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create a new Account"
+                android:textColor="@color/normalBlack"
+                android:layout_below="@+id/sign_in_btn"
+                android:layout_centerHorizontal="true"
+                android:textSize="18sp"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp" />
+
+            <TextView
+                android:id="@+id/sub_email_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/sign_in_email"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="28dp"
+                android:layout_marginBottom="32dp"
+                android:text="Email Id"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:background="@color/whiteColor"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/sub_password_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/sign_in_password"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="28dp"
+                android:layout_marginBottom="32dp"
+                android:text="Password"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:background="@color/whiteColor"
+                android:visibility="gone"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/sign_up_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_below="@+id/logo"
-            android:layout_centerHorizontal="true"
-            android:padding="10dp"
-            android:hint="Email Id"
-            android:drawableLeft="@drawable/left_background"
-            android:drawableRight="@drawable/left_background"
-            android:inputType="textEmailAddress"
-            android:textSize="16sp"
-            android:textColor="@color/blackColor"
-            android:background="@drawable/post_border"/>
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
-        <EditText
-            android:id="@+id/sign_in_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:padding="10dp"
-            android:hint="Password"
-            android:drawableLeft="@drawable/left_background"
-            android:drawableRight="@drawable/left_background"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/sign_in_email"
-            android:inputType="textPassword"
-            android:textSize="16sp"
-            android:textColor="@color/blackColor"
-            android:background="@drawable/post_border"/>
+            <ImageView
+                android:id="@+id/logo2"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="40dp"
+                android:src="@drawable/approxu_logo" />
 
-        <TextView
-            android:id="@+id/forgot_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="forgot password?"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="18dp"
-            android:layout_below="@id/sign_in_password"
-            android:textColor="@color/redColor"
-            />
 
-        <ProgressBar
-            android:id="@+id/sign_in_progressBar"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_below="@id/forgot_password"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:theme="@style/ProgressBar"
-            android:visibility="invisible"/>
+            <EditText
+                android:id="@+id/sign_up_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_below="@+id/logo2"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:hint="First Name"
+                android:drawableLeft="@drawable/left_background"
+                android:drawableRight="@drawable/left_background"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                android:textColor="@color/blackColor"
+                android:background="@drawable/post_border"/>
 
-        <Button
-            android:id="@+id/sign_in_btn"
-            android:layout_width="180dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/post_border"
-            android:text="Sign In"
-            android:enabled="false"
-            android:layout_below="@id/sign_in_progressBar"
-            android:textColor="#50615959"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textAllCaps="false"/>
+            <EditText
+                android:id="@+id/sign_up_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_below="@+id/sign_up_first_name"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:hint="Last Name"
+                android:drawableLeft="@drawable/left_background"
+                android:drawableRight="@drawable/left_background"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                android:textColor="@color/blackColor"
+                android:background="@drawable/post_border"/>
 
-        <TextView
-            android:id="@+id/create_a_new_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Create a new Account"
-            android:textColor="@color/normalBlack"
-            android:layout_below="@+id/sign_in_btn"
-            android:layout_centerHorizontal="true"
-            android:textSize="18sp"
-            android:layout_marginTop="60dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp" />
+
+
+            <EditText
+                android:id="@+id/sign_up_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_below="@+id/sign_up_last_name"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:hint="Email Id"
+                android:drawableLeft="@drawable/left_background"
+                android:drawableRight="@drawable/left_background"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp"
+                android:textColor="@color/blackColor"
+                android:background="@drawable/post_border"/>
+
+            <EditText
+                android:id="@+id/sign_up_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:padding="10dp"
+                android:hint="Password"
+                android:drawableLeft="@drawable/left_background"
+                android:drawableRight="@drawable/left_background"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/sign_up_email"
+                android:inputType="textPassword"
+                android:textSize="16sp"
+                android:textColor="@color/neviBlue"
+                android:background="@drawable/post_border"/>
+
+            <EditText
+                android:id="@+id/sign_up_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:padding="10dp"
+                android:hint="Confirm Password"
+                android:drawableLeft="@drawable/left_background"
+                android:drawableRight="@drawable/left_background"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/sign_up_password"
+                android:inputType="textPassword"
+                android:textSize="16sp"
+                android:textColor="@color/neviBlue"
+                android:background="@drawable/post_border"/>
+
+
+            <EditText
+                android:id="@+id/sign_up_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Gender"
+                android:drawableLeft="@drawable/left_background"
+                android:drawableRight="@drawable/left_background"
+                android:textSize="16sp"
+                android:textColor="@color/neviBlue"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/sign_up_confirm_password"
+                android:background="@drawable/post_border"
+                android:padding="10dp" />
+
+            <LinearLayout
+                android:id="@+id/term_condition_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/sign_up_gender">
+
+                <CheckBox
+                    android:id="@+id/term_condition_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="i agree"
+                    android:textSize="16dp"
+                    android:textColor="@color/borderColor" />
+
+                <TextView
+                    android:id="@+id/term_condition_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:textSize="16dp"
+                    android:text="term , conditions , and policy"
+                    android:textColor="@color/neviBlue"/>
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/sign_up_progressBar"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/term_condition_layout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:theme="@style/ProgressBar"
+                android:visibility="invisible"/>
+
+
+
+            <Button
+                android:id="@+id/sign_up_btn"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/post_btn_background"
+                android:text="Sign Up"
+                android:enabled="false"
+                android:layout_below="@id/sign_up_progressBar"
+                android:textColor="#50615959"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textAllCaps="false"/>
+
+            <TextView
+                android:id="@+id/go_to_sign_in_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&lt;&lt; Go Back"
+                android:textColor="@color/normalBlack"
+                android:layout_below="@+id/sign_up_btn"
+                android:layout_centerHorizontal="true"
+                android:textSize="18sp"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp" />
+
+
+
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 
-</RelativeLayout>
+</androidx.core.widget.NestedScrollView>

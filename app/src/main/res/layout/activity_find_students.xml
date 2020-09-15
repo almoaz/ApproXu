@@ -41,7 +41,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="6dp"
             android:background="@drawable/registration_input_background"
-            android:layout_toEndOf="@+id/find_friends_search"
+            android:layout_toEndOf="@+id/find_student_search"
             android:text="Search"
             android:padding="10dp"
             android:textSize="18sp"

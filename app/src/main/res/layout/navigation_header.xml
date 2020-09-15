@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@color/whiteColor">
+    android:background="@color/settingLinearLayoutColor">
 
 
     <de.hdodenhof.circleimageview.CircleImageView

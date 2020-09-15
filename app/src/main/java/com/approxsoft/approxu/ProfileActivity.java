@@ -1,22 +1,31 @@
 package com.approxsoft.approxu;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -35,30 +44,41 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 public class ProfileActivity extends AppCompatActivity {
 
     Toolbar mToolbar;
     private CircleImageView profileImage;
     ImageView addPostIcon, editProfileIcon, uploadCoverPic;
-    TextView userName,addPost, editProfile, moreInformation, universityName, departmentsName, Semester, semesterID, date_Of_Birth, current_city_name, profileFullName;
+    TextView userName,addPost,AddCoverImageIcon, editProfile, moreInformation, universityName, departmentsName, Semester, semesterID, date_Of_Birth, current_city_name, profileFullName;
     FirebaseAuth mAuth;
     DatabaseReference userReff, profileUserReff, FriendsReff, PostsReff, PostsRef, userRef, StarRef;
     String currentUserId;
-    private RecyclerView myPostList;
+    private RecyclerView myPostList, myImageList;
 
     Boolean StarChecker = false;
 
     private TextView MyPosts, MyFriends;
     private int countFriends = 0, countPosts = 0;
-    public static final int Gallery_Pick = 1;
+    public static final int Gallery_pick = 1;
     private Uri ImageUri;
     private ProgressDialog loadingBar;
     private StorageReference ImageReff;
+    Bitmap thumb_bitmaps = null;
+    SwipeRefreshLayout refreshLayout;
+    RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +89,49 @@ public class ProfileActivity extends AppCompatActivity {
         currentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         userReff = FirebaseDatabase.getInstance().getReference().child("All Users");
         profileUserReff = FirebaseDatabase.getInstance().getReference().child("All Users").child(currentUserId);
-        ImageReff = FirebaseStorage.getInstance().getReference().child("Cover Image");
+        ImageReff = FirebaseStorage.getInstance().getReference().child("Profile Images");
 
         FriendsReff = FirebaseDatabase.getInstance().getReference().child("All Users").child(currentUserId).child("Friends");
         PostsReff = FirebaseDatabase.getInstance().getReference().child("Post");
         PostsRef = FirebaseDatabase.getInstance().getReference().child("Post");
         userRef = FirebaseDatabase.getInstance().getReference().child("All Users");
-        StarRef = FirebaseDatabase.getInstance().getReference().child("Star");
+        StarRef = FirebaseDatabase.getInstance().getReference().child("Post");
+
+        ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = Objects.requireNonNull(manager).getActiveNetworkInfo();
+
+        if (null!=activeNetwork)
+        {
+
+        }else
+        {
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
+            builder.setTitle("No internet");
+            builder.setMessage("Please check your internet connection, mobile data or wifi");
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+
+                    dialog.dismiss();
+
+                }
+            });
+
+            Dialog dialog = builder.create();
+            dialog.show();
+            dialog.setCanceledOnTouchOutside(false);
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.background_light);
+        }
+
+        myPostList = findViewById(R.id.my_all_post_view);
+        myPostList.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        myPostList.setLayoutManager(linearLayoutManager);
+
+        DisplayAllMyPosts();
+
 
 
         addPostIcon = findViewById(R.id.profile_add_new_post_icon);
@@ -96,7 +152,11 @@ public class ProfileActivity extends AppCompatActivity {
         loadingBar = new ProgressDialog(this);
         userName = findViewById(R.id.profile_user_name);
         profileFullName = findViewById(R.id.profile_full_name);
+        AddCoverImageIcon = findViewById(R.id.add_cover_image_icon);
+        refreshLayout = findViewById(R.id.profile_refresh_Layout);
+        relativeLayout = findViewById(R.id.profile_relative_layout);
 
+        relativeLayout.setVisibility(View.VISIBLE);
 
         mToolbar = findViewById(R.id.profile_tool_bar);
         setSupportActionBar(mToolbar);
@@ -104,12 +164,9 @@ public class ProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
 
-        myPostList = findViewById(R.id.my_all_post_view);
-        myPostList.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
-        myPostList.setLayoutManager(linearLayoutManager);
+
+
+
 
         userReff.child(currentUserId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -133,7 +190,7 @@ public class ProfileActivity extends AppCompatActivity {
                     semesterID.setText(semesterid);
                     date_Of_Birth.setText(dateOfBirth);
                     current_city_name.setText(currentCity);
-                    Picasso.get().load(coverImage).into(uploadCoverPic);
+                    Picasso.get().load(coverImage).placeholder(R.drawable.blank_cover_image).into(uploadCoverPic);
                     Picasso.get().load(PrfileImage).placeholder(R.drawable.profile_icon).into(profileImage);
 
                 }
@@ -145,7 +202,24 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        DisplayAllMyPosts();
+
+
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Intent intent = new Intent(ProfileActivity.this,ProfileActivity.class);
+                startActivity(intent);
+                Animatoo.animateFade(ProfileActivity.this);
+                finish();
+                refreshLayout.isRefreshing();
+                refreshLayout.setRefreshing(false);
+                DisplayAllMyPosts();
+
+
+
+            }
+        });
 
 
         addPost.setOnClickListener(new View.OnClickListener() {
@@ -167,7 +241,7 @@ public class ProfileActivity extends AppCompatActivity {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent editProfileIntent = new Intent(ProfileActivity.this, SettingsActivity.class);
+                Intent editProfileIntent = new Intent(ProfileActivity.this, EditProfileActivity.class);
                 startActivity(editProfileIntent);
             }
         });
@@ -188,7 +262,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        uploadCoverPic.setOnClickListener(new View.OnClickListener() {
+        AddCoverImageIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openGallery();
@@ -209,7 +283,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    MyFriends.setText("0 Friends");
+                    MyFriends.setText("Friends");
                 }
             }
 
@@ -249,6 +323,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                     }
                 });
+
+
+
     }
 
 
@@ -257,138 +334,132 @@ public class ProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        if (requestCode==Gallery_Pick && resultCode==RESULT_OK && data!=null)
-        {
-            ImageUri = data.getData();
-            uploadCoverPic.setImageURI(ImageUri);
+        if(requestCode == Gallery_pick && resultCode == RESULT_OK && data!=null) {
+            Uri imageUri = data.getData();
+
+            CropImage.activity(imageUri)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .setAspectRatio(1, 1)
+                    .start(this);
+
+
         }
 
-        if (resultCode == RESULT_OK) {
-            loadingBar.setTitle("Cover Image");
-            loadingBar.setMessage("Your cover image uploading ...");
-            loadingBar.setCanceledOnTouchOutside(true);
-            loadingBar.show();
+        Calendar calForDate = Calendar.getInstance();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat currentDate = new SimpleDateFormat("dd-MMMM-yyyy");
+        final String saveCurrentDate = currentDate.format(calForDate.getTime());
+
+        Calendar calForTime = Calendar.getInstance();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm");
+        final String saveCurrentTime = currentTime.format(calForTime.getTime());
+
+        final  String postRandomName = saveCurrentDate + saveCurrentTime;
 
 
-            StorageReference filePath = ImageReff.child(currentUserId + ".jpg");                     //loadingBar.setTitle("Profile Image");
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
-            filePath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if (task.isSuccessful()) {
+            if (resultCode == RESULT_OK) {
+                loadingBar.setTitle("Cover Image");
+                loadingBar.setMessage("Your cover image uploading ...");
+                loadingBar.setCanceledOnTouchOutside(true);
+                loadingBar.show();
 
-                        //Toast.makeText(AddPostActivity.this, "Image upload successfully firebase storage...", Toast.LENGTH_SHORT).show();
+                Uri resultUri = result.getUri();
 
-                        Task<Uri> result = Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getMetadata()).getReference()).getDownloadUrl();
+                File thumb_filePathUri = new File(resultUri.getPath());
 
-                        result.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                final String downloadUrl = uri.toString();
-                                profileUserReff.child("coverImage").setValue(downloadUrl)
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
+                try {
+                    thumb_bitmaps = new Compressor(ProfileActivity.this)
+                            .setMaxWidth(400)
+                            .setMaxHeight(200)
+                            .setQuality(80)
+                            .compressToBitmap(thumb_filePathUri);
 
-
-                                                    loadingBar.dismiss();
-                                                } else {
-                                                    String message = Objects.requireNonNull(task.getException()).getMessage();
-                                                    Toast.makeText(ProfileActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
-                                                    loadingBar.dismiss();
-                                                }
-                                            }
-                                        });
-                            }
-                        });
-                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
-        } else {
-            loadingBar.dismiss();
-        }
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                thumb_bitmaps.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
+                final byte[] thumb_byte = byteArrayOutputStream.toByteArray();
+
+
+                StorageReference filePath = ImageReff.child(currentUserId).child("CoverImage").child(resultUri.getLastPathSegment() + postRandomName + ".jpg");                     //loadingBar.setTitle("Profile Image");
+
+                filePath.putBytes(thumb_byte).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            //Toast.makeText(AddPostActivity.this, "Image upload successfully firebase storage...", Toast.LENGTH_SHORT).show();
+
+                            Task<Uri> result = Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(task.getResult()).getMetadata()).getReference()).getDownloadUrl();
+
+                            result.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    final String downloadUrl = uri.toString();
+                                    profileUserReff.child("coverImage").setValue(downloadUrl)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+
+
+                                                        loadingBar.dismiss();
+                                                    } else {
+                                                        String message = Objects.requireNonNull(task.getException()).getMessage();
+                                                        Toast.makeText(ProfileActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                                        loadingBar.dismiss();
+                                                    }
+                                                }
+                                            });
+                                }
+                            });
+                        }
+                    }
+                });
+            } else {
+                loadingBar.dismiss();
+            }
+        } super.onActivityResult(requestCode, resultCode, data);
 
     }
     private void openGallery() {
         Intent galleryIntent = new Intent();
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, Gallery_Pick);
+        startActivityForResult(galleryIntent, Gallery_pick);
     }
 
 
-    @Override
-    protected void onRestart() {
-
-        userReff.child(currentUserId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    String fullname = Objects.requireNonNull(dataSnapshot.child("fullName").getValue()).toString();
-                    String university = Objects.requireNonNull(dataSnapshot.child("university").getValue()).toString();
-                    String departments = Objects.requireNonNull(dataSnapshot.child("departments").getValue()).toString();
-                    String semester = Objects.requireNonNull(dataSnapshot.child("semester").getValue()).toString();
-                    String semesterid = Objects.requireNonNull(dataSnapshot.child("stdId").getValue()).toString();
-                    String dateOfBirth = Objects.requireNonNull(dataSnapshot.child("dateOfBirth").getValue()).toString();
-                    String currentCity = Objects.requireNonNull(dataSnapshot.child("currentCity").getValue()).toString();
-                    String PrfileImage = Objects.requireNonNull(dataSnapshot.child("profileImage").getValue()).toString();
-                    String coverImage = Objects.requireNonNull(dataSnapshot.child("coverImage").getValue()).toString();
-
-                    profileFullName.setText(fullname);
-                    userName.setText(fullname);
-                    universityName.setText(university);
-                    departmentsName.setText(departments);
-                    Semester.setText(semester);
-                    semesterID.setText(semesterid);
-                    date_Of_Birth.setText(dateOfBirth);
-                    current_city_name.setText(currentCity);
-
-                    Picasso.get().load(coverImage).into(uploadCoverPic);
-                    Picasso.get().load(PrfileImage).placeholder(R.drawable.profile_icon).into(profileImage);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        super.onRestart();
-    }
 
     private void DisplayAllMyPosts() {
-        Query ShortPostInDecendingOrder = PostsRef.orderByChild("uid")
+        Query myPost = PostsRef.orderByChild("uid")
                 .startAt(currentUserId).endAt(currentUserId + " \uf8ff");
 
 
-        FirebaseRecyclerOptions<Posts> options = new FirebaseRecyclerOptions.Builder<Posts>().setQuery(ShortPostInDecendingOrder, Posts.class).build();
+        FirebaseRecyclerOptions<Posts> options = new FirebaseRecyclerOptions.Builder<Posts>().setQuery(myPost, Posts.class).build();
         FirebaseRecyclerAdapter<Posts, PostsViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Posts, ProfileActivity.PostsViewHolder>(options) {
             @SuppressLint("SetTextI18n")
             @Override
-            protected void onBindViewHolder(@NonNull ProfileActivity.PostsViewHolder holder, final int position, @NonNull Posts model) {
+            protected void onBindViewHolder(@NonNull final ProfileActivity.PostsViewHolder holder, final int position, @NonNull Posts model) {
 
                 final String PostKey = getRef(position).getKey();
+                final String PostKeys = getRef(position).getKey();
+
+                relativeLayout.setVisibility(View.VISIBLE);
                 holder.username.setText(model.getFullName());
                 holder.time.setText("    " + model.getTime());
                 holder.date.setText("    " + model.getDate());
                 holder.description.setText(model.getDescription());
 
-                Picasso.get().load(model.getPostImage()).into(holder.postImage);
-                Picasso.get().load(model.getProfileImage()).into(holder.user_profile_image);
+               /// Picasso.get().load(model.getProfileImage()).into(holder.user_profile_image);
 
                 holder.setStarButtonStatus(PostKey);
+                holder.setCommentsCount(PostKey);
 
 
-                holder.postImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent clickPostIntent = new Intent(ProfileActivity.this,ClickPostActivity.class);
-                        clickPostIntent.putExtra("PostKey",PostKey);
-                        startActivity(clickPostIntent);
-                    }
-                });
                 holder.description.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -408,6 +479,42 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
 
+                holder.DisplayNoOfStar.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+
+                        assert PostKey != null;
+                        PostsRef.child(PostKey).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                            {
+                                if (dataSnapshot.exists())
+                                {
+                                    String Uid = Objects.requireNonNull(dataSnapshot.child("uid").getValue()).toString();
+
+                                    if (Uid.equals(currentUserId))
+                                    {
+                                        Intent commentsIntent = new Intent(ProfileActivity.this,StarFriendActivity.class);
+                                        commentsIntent.putExtra("PostKey",PostKey);
+                                        startActivity(commentsIntent);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
+                    }
+                });
+
+
                 holder.StarPostBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -416,12 +523,17 @@ public class ProfileActivity extends AppCompatActivity {
                         StarRef.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if (StarChecker.equals(true)) {
-                                    if (dataSnapshot.child(Objects.requireNonNull(PostKey)).hasChild(currentUserId)) {
-                                        StarRef.child(PostKey).child(currentUserId).removeValue();
+                                if (StarChecker.equals(true))
+                                {
+                                    assert PostKey != null;
+                                    if (dataSnapshot.child(PostKey).child("Star").child(PostKey).hasChild(currentUserId))
+                                    {
+                                        StarRef.child(PostKey).child("Star").child(PostKey).child(currentUserId).removeValue();
                                         StarChecker = false;
-                                    } else {
-                                        StarRef.child(PostKey).child(currentUserId).setValue(true);
+                                    }
+                                    else
+                                    {
+                                        StarRef.child(PostKey).child("Star").child(PostKey).child(currentUserId).setValue(true);
                                         StarChecker = false;
                                     }
                                 }
@@ -434,6 +546,42 @@ public class ProfileActivity extends AppCompatActivity {
                         });
                     }
                 });
+                PostsRef.child(PostKeys).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                    {
+                        if (dataSnapshot.exists())
+                        {
+                            final String Uid = dataSnapshot.child("uid").getValue().toString();
+
+                            userRef.child(Uid).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                                {
+                                    String profileImage = dataSnapshot.child("profileImage").getValue().toString();
+                                    String name = dataSnapshot.child("fullName").getValue().toString();
+
+                                    holder.username.setText(name);
+                                    Picasso.get().load(profileImage).placeholder(R.drawable.profile_icon).into(holder.user_profile_image);
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
 
             }
 
@@ -453,13 +601,13 @@ public class ProfileActivity extends AppCompatActivity {
     public static class PostsViewHolder extends RecyclerView.ViewHolder {
         View mView;
         ImageView StarPostBtn, CommentsPostBtn;
-        TextView DisplayNoOfStar;
-        int countStar;
+        TextView DisplayNoOfStar,commentsCount;
+        int countStar = 0 ;
+        int CommentsCount = 0 ;
         String currentUserId;
-        DatabaseReference StarReff;
+        DatabaseReference StarReff,CommentReff;
         TextView username, date, time, description;
         CircleImageView user_profile_image;
-        ImageView postImage;
 
         PostsViewHolder(View itemView) {
             super(itemView);
@@ -470,30 +618,32 @@ public class ProfileActivity extends AppCompatActivity {
             time = itemView.findViewById(R.id.post_time);
             description = itemView.findViewById(R.id.post_description);
             user_profile_image = itemView.findViewById(R.id.post_profile_image);
-            postImage = itemView.findViewById(R.id.post_image);
-
             StarPostBtn = itemView.findViewById(R.id.display_star_btn);
             CommentsPostBtn = itemView.findViewById(R.id.comment_button);
             DisplayNoOfStar = itemView.findViewById(R.id.display_no_of_star);
+            commentsCount = itemView.findViewById(R.id.comments_count_btn);
 
-            StarReff = FirebaseDatabase.getInstance().getReference().child("Star");
+            StarReff = FirebaseDatabase.getInstance().getReference().child("Post");
+            CommentReff = FirebaseDatabase.getInstance().getReference().child("Post");
             currentUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         }
 
         void setStarButtonStatus(final String PostKey) {
-            StarReff.addValueEventListener(new ValueEventListener() {
+            StarReff.child(PostKey).addValueEventListener(new ValueEventListener() {
                 @SuppressLint("SetTextI18n")
                 @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.child(PostKey).hasChild(currentUserId)) {
-                        countStar = (int) dataSnapshot.child(PostKey).getChildrenCount();
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+                {
+                    if (dataSnapshot.child("Star").child(PostKey).hasChild(currentUserId))
+                    {
+                        countStar = (int) dataSnapshot.child("Star").child(PostKey).getChildrenCount();
                         StarPostBtn.setImageResource(R.drawable.full_gold_star);
-                        DisplayNoOfStar.setText(countStar + (" Star"));
-                    } else {
-                        countStar = (int) dataSnapshot.child(PostKey).getChildrenCount();
+                        DisplayNoOfStar.setText(countStar +(" Star"));
+                    }else {
+                        countStar = (int) dataSnapshot.child("Star").child(PostKey).getChildrenCount();
                         StarPostBtn.setImageResource(R.drawable.gold_star);
-                        DisplayNoOfStar.setText(countStar + (" Star"));
+                        DisplayNoOfStar.setText(countStar +(" Star"));
                     }
                 }
 
@@ -501,6 +651,31 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
+            });
+
+        }
+
+        void setCommentsCount(final String PostKey)
+        {
+            CommentReff.child(PostKey).child("Comments").addValueEventListener(new ValueEventListener() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        commentsCount.setVisibility(View.VISIBLE);
+                        CommentsCount = (int) dataSnapshot.getChildrenCount();
+                        commentsCount.setText(Integer.toString(CommentsCount));
+                    } else {
+                        commentsCount.setText("");
+                        commentsCount.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onCancelled (@NonNull DatabaseError databaseError){
+
+                }
+
             });
 
         }

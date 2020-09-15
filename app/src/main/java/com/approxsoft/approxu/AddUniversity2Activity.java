@@ -230,16 +230,30 @@ public class AddUniversity2Activity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(AddUniversity2Activity.this,AddUniversity2Activity.class);
-        startActivity(intent);
-        super.onBackPressed();
+    protected void onStop() {
+        HashMap studentMap = new HashMap();
+        studentMap.put("university","None");
+        studentMap.put("stdId","None");
+        userReff.child(CurrentUserId).updateChildren(studentMap).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+
+            }
+        });
+        super.onStop();
     }
 
     @Override
-    protected void onDestroy() {
-        Intent intent = new Intent(AddUniversity2Activity.this,AddUniversity2Activity.class);
-        startActivity(intent);
-        super.onDestroy();
+    protected void onUserLeaveHint() {
+        HashMap studentMap = new HashMap();
+        studentMap.put("university","None");
+        studentMap.put("stdId","None");
+        userReff.child(CurrentUserId).updateChildren(studentMap).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+
+            }
+        });
+        super.onUserLeaveHint();
     }
 }

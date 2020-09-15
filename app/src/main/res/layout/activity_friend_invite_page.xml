@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FriendInvitePageActivity"
+    android:background="@color/whiteColor">
+
+    <include
+        android:id="@+id/invite_friends_app_bar"
+        layout="@layout/navigation_ap_bar">
+    </include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/invite_friends_app_bar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/invite_friend_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>
